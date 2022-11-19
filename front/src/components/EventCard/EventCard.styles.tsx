@@ -1,0 +1,51 @@
+import styled from 'styled-components';
+
+import {
+    Card as MuiCard,
+    CardActions as MuiCardActions,
+    CardContent as MuiCardContent,
+    CardMedia as MuiCardMedia,
+    Typography as MuiTypography
+} from '@mui/material';
+import {CalendarMonth as MuiCalendarMonth} from '@mui/icons-material';
+import {Place as MuiPlace } from '@mui/icons-material';
+
+export const Card = styled(MuiCard)`
+   flex: 0 0 auto;
+   border: 2px solid black;
+   border-radius: 10px;
+`;
+export const CardActions = styled(MuiCardActions)`
+    height: 4rem;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+`;
+export const CardContent = styled(MuiCardContent)``;
+export const CardMedia = styled(MuiCardMedia)`
+    height: 200px;
+`;
+export const Typography = styled(MuiTypography)`
+    &.host {
+        font-style: italic;
+    }
+`;
+export const CalendarMonth = styled(MuiCalendarMonth)``;
+export const Place = styled(MuiPlace)``;
+
+export const CardAction = styled('div')`
+    padding-left: 0.5rem;  
+    height: 100%;
+    width: 50%;
+    border: 0.5px solid #ccc;
+    display: flex;
+    align-items: center;
+
+    &:nth-child(2) {
+        margin-left: 0;
+        border-left: none;
+    }
+`;
+

@@ -1,10 +1,6 @@
 import React from 'react';
-import Button from '@mui/material/Button';
+import { Dashboard } from 'pages/Dashboard/Dashboard';
 
 export const Home = () => {
-    return (
-        <div className="home">
-            <Button variant="contained">Contained</Button>
-        </div>
-    );
+    return <Dashboard/>;
 };
