@@ -47,7 +47,7 @@ function App() {
                     {/* DO NOT USE component like bellow in a Switch statement */}
                     <Routes>
                         <Route path="/" exact element={<Home />} />
-                        <Route path="/event/:id" exact element={<Event />} />
+                        <Route path="/event" exact element={<Event />} />
                         <Route
                             path="/explore"
                             exact
