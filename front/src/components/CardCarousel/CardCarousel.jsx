@@ -6,6 +6,8 @@ import { EventCard } from 'components/EventCard/EventCard';
 export const CardCarousel = ({ title }) => {
     return (
         <S.CardCarouselContainer>
+            <S.TitleContainer><S.Title variant="h6"
+                    color="text.primary">{title || "TITLU CEL MAI BUN"}</S.Title></S.TitleContainer>
             <S.SliderContainer>
             <EventCard/>
             <EventCard/>
