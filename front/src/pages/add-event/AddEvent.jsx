@@ -177,7 +177,7 @@ const AddEvent = () => {
                             <MenuItem value={'other'}>Other</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="contained" component="label">
+                    <Button variant="outlined" component="label">
                         Upload pictures
                         <input
                             hidden

@@ -12,8 +12,8 @@ import {Place as MuiPlace } from '@mui/icons-material';
 
 export const Card = styled(MuiCard)`
    flex: 0 0 auto;
-   border: 2px solid black;
-   border-radius: 10px;
+   border: 2px solid black !important;
+   border-radius: 10px !important;
 `;
 export const CardActions = styled(MuiCardActions)`
     height: 4rem;
