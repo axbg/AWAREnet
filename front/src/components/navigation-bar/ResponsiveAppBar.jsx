@@ -36,7 +36,7 @@ export const ResponsiveAppBar = () => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" style={{ background: '#114b5f' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon
