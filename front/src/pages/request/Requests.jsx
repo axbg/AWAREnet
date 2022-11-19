@@ -25,7 +25,16 @@ export const Requests = () => {
         );
     };
     const OnGoingRequests = () => {
-        return <div></div>;
+        return (
+            <div className={styles.pendingRequests}>
+                <RequestCard />
+                <RequestCard />
+                <RequestCard />
+                <RequestCard />
+                <RequestCard />
+                <RequestCard />
+            </div>
+        );
     };
     return (
         <PageContainer>
@@ -59,7 +68,7 @@ export const Requests = () => {
             {openModal && (
                 <AddRequestModal
                     isOpen={openModal}
-                    handleClose={setOpenAddModal}
+                    handleClose={() => setOpenAddModal(false)}
                 />
             )}
         </PageContainer>

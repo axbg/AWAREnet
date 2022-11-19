@@ -11,6 +11,7 @@ import { GlobalContextProvide } from './global-context';
 import './App.scss';
 import { ExploreEventsMap } from 'pages/explore-events-map/ExploreEventsMap';
 import { Requests } from 'pages/request/Requests';
+import { Login } from 'pages/auth/Login';
 
 function App() {
     const darkTheme = createTheme({
@@ -48,6 +49,8 @@ function App() {
                     {/* DO NOT USE component like bellow in a Switch statement */}
                     <Routes>
                         <Route path="/" exact element={<Home />} />
+                        <Route path="/login" exact element={<Login />} />
+
                         <Route path="/event" exact element={<Event />} />
                         <Route path="/requests" exact element={<Requests />} />
 

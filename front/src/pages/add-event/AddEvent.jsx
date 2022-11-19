@@ -4,7 +4,6 @@ import {
     Button,
     FormControl,
     Grid,
-    Input,
     InputLabel,
     MenuItem,
     Select,
@@ -14,7 +13,7 @@ import {
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import Map, { Marker, Popup } from 'react-map-gl';
+import Map, { Marker } from 'react-map-gl';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { isEmpty } from 'lodash';
 
