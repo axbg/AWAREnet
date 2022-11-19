@@ -8,9 +8,12 @@ module.exports = (db) => {
   const UserSchema = new Schema({
     email: {type: String, required: true},
     password: String,
-    firstname: String,
-    lastname: String,
-    picture: String,
+    name: String,
+    type: String,
+    preferredLocation: {
+      lat: String,
+      long: String
+    }
   });
 
   UserSchema.pre('save', async function(next) {

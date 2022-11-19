@@ -14,10 +14,6 @@ router.get('/', (ctx) => {
   ctx.body = {message: 'koa starter - hello endpoint'};
 });
 
-if (ENABLE_SWAGGER) {
-  router.get('/docs', koaSwagger({routePrefix: false, swaggerOptions: {spec}}));
-}
-
 // public routes - register your public routers here
 router.use('/user', userRouter.routes());
 
