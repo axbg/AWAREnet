@@ -1,21 +1,88 @@
-const {UserModel} = require('../models');
+const {ActionModel, EventModel} = require('../models');
 
-const createUser = async (email, password, name, type, preferredLocation) => {
-    return (await UserModel.create(
+const {uploadToS3} = require('./event');
+const {getUserType} = require("./user");
+const {USER_TYPE} = require("../types/userType");
+const {throwError} = require("../types/error");
+const moment = require("moment");
+
+const createAction = async (body, userId) => {
+    const userType = await getUserType(userId);
+
+    if(userType === USER_TYPE.COMPANY) {
+        const pictures = await uploadToS3(body.pictures);
+        return (await ActionModel.create(
             {
-                email: email,
-                password: password,
-                name: name,
-                type: type,
-                preferredLocation: preferredLocation
-            })
-    ).id;
-};
+                description: body.description,
+                pictures: [...pictures],
+                active: true,
+                timestampCreated: moment().utc().valueOf(),
+                owner: userId
+            }
+        )).id;
+    } else {
+        throwError("You cannot create an action unless you are a company", 401);
+    }
+}
 
-const createEvent = async() => {
+const searchAction = async (body, userId) => {
+    const userType = await getUserType(userId);
 
+    if(userType !== USER_TYPE.COMPANY && userType !== USER_TYPE.NGO) {
+        throwError("Only NGOs and Companies can see the registered actions", 401);
+    }
+
+    let query = {
+        "$and": []
+    };
+
+    if(body.active !== undefined) {
+        if(body.active === "true") {
+            query['$and'].push({active: true});
+        } else {
+            query['$and'].push({active: false});
+        }
+    }
+
+    if(body.ownedBy) {
+        query['$and'].push({owner: body.ownedBy});
+    }
+
+    if(body.description) {
+        query['$and'].push({description: {$regex: body.description}});
+    }
+
+    if(body.owned) {
+        switch (userType) {
+            case USER_TYPE.COMPANY:
+                query['$and'].push({owner: userId});
+                break;
+        }
+    }
+
+    let sort = {};
+    let sortField = "timestampCreated";
+
+    if(body.order === 'ASC') {
+        sort[sortField] = 1;
+    } else {
+        sort[sortField] = -1;
+    }
+
+    return query["$and"].length !== 0 ? await ActionModel.find(query).sort(sort) : await ActionModel.find().sort(sort);
+}
+
+const deactivateAction = async (body, userId) => {
+    const action = await ActionModel.findOne({_id: body.id, owner: userId});
+
+    if(action) {
+        action.active = !action.active;
+        await action.save();
+    }
 }
 
 module.exports = {
-    createEvent
+    createAction,
+    searchAction,
+    deactivateAction
 };

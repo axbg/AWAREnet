@@ -7,6 +7,7 @@ const {authenticated}= require('../middlewares').authentication;
 
 const userRouter = require('./user');
 const eventRouter = require('./event');
+const actionRouter = require('./action');
 
 const router = new Router({prefix: '/api'});
 
@@ -21,6 +22,7 @@ router.use('/user', userRouter.routes());
 router.use(authenticated);
 
 router.use('/event', eventRouter.routes());
+router.use('/action', actionRouter.routes());
 
 // protected routes - you can register your protected routers here
 router.get('/authenticated', (ctx) => {

@@ -213,6 +213,7 @@ const rate = async (body, userId) => {
 }
 
 module.exports = {
+    uploadToS3,
     createEvent,
     deleteEvent,
     searchEvents,

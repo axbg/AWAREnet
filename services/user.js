@@ -9,7 +9,7 @@ const getExistingUser = async (email, password) => {
     const user = await UserModel.findOne({email: email});
 
     if (user) {
-        return await user.comparePassword(password) ? user.id : "wrong";
+        return await user.comparePassword(password) ? {id: user._id, type: user.type} : "wrong";
     } else {
         return false;
     }
@@ -34,26 +34,16 @@ const getUsers = async (types, ids) => {
 }
 
 const createUser = async (email, password, name, type, preferredLocation) => {
-    return (await UserModel.create(
+    const user = await UserModel.create(
             {
                 email: email,
                 password: password,
                 name: name,
                 type: type,
                 preferredLocation: preferredLocation
-            })
-    ).id;
-};
+            });
 
-const getOrCreateUser = async (profile) => {
-    const existingUser = await UserModel.findOne({email: profile.email});
-
-    if (existingUser) {
-        return {_id: existingUser._id};
-    }
-
-    const newUser = await UserModel.create(profile);
-    return {_id: newUser._id};
+    return {id: user._id, type: user.type}
 };
 
 const requestBackgroundCheck = async (userId) => {
@@ -74,6 +64,5 @@ module.exports = {
     getUsers,
     getUserType,
     createUser,
-    getOrCreateUser,
     requestBackgroundCheck
 };

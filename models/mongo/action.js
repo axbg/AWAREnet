@@ -3,9 +3,10 @@ const {Schema} = require('mongoose');
 module.exports = (db) => {
   const ActionSchema = new Schema({
     description: String,
-    pictures: [{ data: Buffer }],
+    pictures: [{ type: String }],
     active: Boolean,
-    ownerId: String
+    owner: String,
+    timestampCreated: Number
   });
 
   return db.model('action', ActionSchema);

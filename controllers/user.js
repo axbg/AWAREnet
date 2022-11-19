@@ -7,11 +7,11 @@ const login = async (ctx) => {
     ctx.request.body.email || throwError('Missing parameter: email', 400);
     ctx.request.body.password || throwError('Missing parameter: password', 400);
 
-    let userId = await service.getExistingUser(ctx.request.body.email, ctx.request.body.password);
+    let user = await service.getExistingUser(ctx.request.body.email, ctx.request.body.password);
 
-    if (userId === "wrong") {
+    if (user === "wrong") {
         throwError("Invalid credentials", 400);
-    } else if (userId === false) {
+    } else if (user === false) {
         ctx.request.body.name || throwError('Missing parameter: name', 400);
         ctx.request.body.type || throwError('Missing parameter: type', 400);
 
@@ -19,13 +19,13 @@ const login = async (ctx) => {
             ctx.request.body.preferredLocation || throwError('Missing parameter: preferredLocation', 400);
         }
 
-        userId = await service.createUser(ctx.request.body.email, ctx.request.body.password,
+        user = await service.createUser(ctx.request.body.email, ctx.request.body.password,
             ctx.request.body.name, ctx.request.body.type, ctx.request.body.preferredLocation);
     }
 
-    ctx.session = {passport: {user: {_id: userId}}};
+    ctx.session = {passport: {user: {_id: user.id}}};
     ctx.status = 200;
-    ctx.body = {message: 'Logged in'};
+    ctx.body = {message: 'Logged in', id: user.id, type: user.type};
 };
 
 const logout = async (ctx) => {
