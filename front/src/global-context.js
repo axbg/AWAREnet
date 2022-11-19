@@ -2,23 +2,27 @@ import * as React from 'react';
 const GlobalContext = React.createContext();
 
 const initialState = {
-    count: 0
+    count: 0,
+    user: {}
 };
-const ACTIONS = {};
+
+const ACTIONS = {
+    ADD_USER: 'addUserData'
+};
 
 //todo add a actions.js file into a global-context directory
-// export const addUserId = (userId) => ({
-//     type: ACTIONS.ADD_USER_ID,
-//     userId
-// });
+export const addUser = (user) => ({
+    type: ACTIONS.ADD_USER,
+    user
+});
 
 function storeReducer(state = initialState, action) {
     switch (action.type) {
-        case ACTIONS.ADD_USER_ID: {
-            localStorage.setItem('userId', action.userId);
+        case ACTIONS.ADD_USER: {
+            localStorage.setItem('user', action.user);
             return {
                 ...state,
-                userId: action.userId
+                user: action.user
             };
         }
         default: {
