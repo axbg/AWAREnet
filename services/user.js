@@ -1,6 +1,10 @@
 const {UserModel} = require('../models');
 const {USER_TYPE} = require("../types/userType");
 
+const getUser = async(userId) => {
+    return await UserModel.findOne({_id: userId});
+}
+
 const getExistingUser = async (email, password) => {
     const user = await UserModel.findOne({email: email});
 
@@ -65,6 +69,7 @@ const requestBackgroundCheck = async (userId) => {
 };
 
 module.exports = {
+    getUser,
     getExistingUser,
     getUsers,
     getUserType,

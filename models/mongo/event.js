@@ -6,7 +6,8 @@ module.exports = (db) => {
     shortDescription: String,
     description: String,
     location: [{ lat: String, long: String }],
-    timestampStart: String,
+    timestampCreated: Number,
+    timestampStart: Number,
     action: String,
     type: String,
     pictures: [
@@ -18,7 +19,7 @@ module.exports = (db) => {
     partners: [{type: String}],
     participants: [{ type: String }],
     followUp: {description: String, pictures: [{ type: String }]},
-    ratings: [{ userId: String, rating: Number }]
+    ratings: [{ userId: String, rating: Number, comment: String }]
   });
 
   return db.model('event', EventSchema);
