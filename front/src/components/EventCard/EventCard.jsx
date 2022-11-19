@@ -36,11 +36,11 @@ export const EventCard = ({
             </S.CardContent>
             <S.CardActions>
                 <S.CardAction>
-                        <S.CalendarMonth />
-                        {timestamp || 'Maine la 6'}
+                    <S.CalendarMonth />
+                    {timestamp || 'Maine la 6'}
                 </S.CardAction>
                 <S.CardAction>
-                    <S.Place/>
+                    <S.Place />
                     {location || 'Unirii'}
                 </S.CardAction>
             </S.CardActions>
