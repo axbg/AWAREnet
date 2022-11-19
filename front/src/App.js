@@ -13,6 +13,8 @@ import { ExploreEventsMap } from 'pages/explore-events-map/ExploreEventsMap';
 import { Requests } from 'pages/request/Requests';
 import { Login } from 'pages/auth/Login';
 import { Actions } from 'pages/action/Actions';
+import { AddEvent } from 'pages/add-event/AddEvent';
+import { MobileLayout } from 'layouts/MobileLayout';
 
 function App() {
     const darkTheme = createTheme({
@@ -55,12 +57,15 @@ function App() {
                         <Route path="/event" exact element={<Event />} />
                         <Route path="/requests" exact element={<Requests />} />
                         <Route path="/actions" exact element={<Actions />} />
-
-                        <Route
-                            path="/explore"
-                            exact
-                            element={<ExploreEventsMap />}
-                        />
+                        <Route path="/add-event" exact element={<AddEvent />} />
+                        <Route element={<MobileLayout />}>
+                            <Route path="/dashboard" exact element={<Home />} />
+                            <Route
+                                path="/explore"
+                                exact
+                                element={<ExploreEventsMap />}
+                            />
+                        </Route>
                     </Routes>
                 </div>
             </ThemeProvider>

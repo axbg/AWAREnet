@@ -53,7 +53,7 @@ const ExploreEventsMap = () => {
         <Map
             initialViewState={viewport}
             onViewportChange={(viewport) => setViewport(viewport)}
-            style={{ width: '100vw', height: '100vh' }}
+            style={{ width: '100%', height: '100%' }}
             mapStyle="mapbox://styles/ioanaberdei/ck9skae4j0c0u1ip47213ro3l"
             mapboxAccessToken="pk.eyJ1IjoiaW9hbmFiZXJkZWkiLCJhIjoiY2s5c2swcjQxMDJudDNucDhjNHEyaXk4byJ9.ia1jixW2yKendX2Janc25w">
             {events.map((ev, index) => (
