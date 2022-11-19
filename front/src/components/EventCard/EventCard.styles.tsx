@@ -11,7 +11,9 @@ import {CalendarMonth as MuiCalendarMonth} from '@mui/icons-material';
 import {Place as MuiPlace } from '@mui/icons-material';
 
 export const Card = styled(MuiCard)`
-   height: 100%;
+   flex: 0 0 auto;
+   border: 2px solid black;
+   border-radius: 10px;
 `;
 export const CardActions = styled(MuiCardActions)`
     height: 4rem;
@@ -22,7 +24,9 @@ export const CardActions = styled(MuiCardActions)`
     justify-content: center;    
 `;
 export const CardContent = styled(MuiCardContent)``;
-export const CardMedia = styled(MuiCardMedia)``;
+export const CardMedia = styled(MuiCardMedia)`
+    height: 200px;
+`;
 export const Typography = styled(MuiTypography)`
     &.host {
         font-style: italic;
