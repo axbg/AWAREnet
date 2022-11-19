@@ -18,10 +18,8 @@ import {
     Checkbox
 } from '@mui/material';
 import styles from './RequestDetails.module.scss';
-import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
 
-import _ from 'lodash';
+// import _ from 'lodash';
 
 export const RequestDetails = (props) => {
     const { isOpen, handleClose, request } = props;
@@ -95,7 +93,6 @@ export const RequestDetails = (props) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => handleClose()}>Cancel</Button>
-                {/* <Button onClick={() => saveRequest()}>Save</Button> */}
             </DialogActions>
         </Dialog>
     );
