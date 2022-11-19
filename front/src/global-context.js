@@ -3,7 +3,7 @@ const GlobalContext = React.createContext();
 
 const initialState = {
     count: 0,
-    user: {}
+    user: JSON.parse(localStorage.getItem('userDetails')) || {}
 };
 
 const ACTIONS = {
@@ -19,7 +19,8 @@ export const addUser = (user) => ({
 function storeReducer(state = initialState, action) {
     switch (action.type) {
         case ACTIONS.ADD_USER: {
-            localStorage.setItem('user', action.user);
+            console.log('here', action);
+            localStorage.setItem('user', JSON.stringify(action.user));
             return {
                 ...state,
                 user: action.user
