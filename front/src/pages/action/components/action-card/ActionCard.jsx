@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, Avatar, Divider } from '@mui/material';
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    Button,
+    Avatar,
+    Divider
+} from '@mui/material';
 import { red } from '@mui/material/colors';
 import styles from './ActionCard.module.scss';
+import { ImageListModal } from '../image-list/ImageListModal';
 
 export const ActionCard = ({ ...props }) => {
     const [isOpen, openDetailsModal] = useState(false);
@@ -15,6 +23,11 @@ export const ActionCard = ({ ...props }) => {
                     title={
                         <div className={styles.customHeader}>
                             <span>Action: I need an event</span>{' '}
+                            <Button
+                                variant="outlined"
+                                onClick={() => openDetailsModal(true)}>
+                                View images
+                            </Button>
                         </div>
                     }
                     subheader="by Devhacks"
@@ -27,7 +40,7 @@ export const ActionCard = ({ ...props }) => {
                     <Divider classes={{ root: styles.divider }} />
                     <div className={styles.cardContent}>
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            R
+                            A
                         </Avatar>
 
                         <span>
@@ -39,6 +52,12 @@ export const ActionCard = ({ ...props }) => {
                     </div>
                 </CardContent>
             </Card>
+            {isOpen && (
+                <ImageListModal
+                    isOpen={isOpen}
+                    handleClose={() => openDetailsModal(false)}
+                />
+            )}
         </div>
     );
 };
