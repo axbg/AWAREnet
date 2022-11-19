@@ -27,12 +27,12 @@ export const Requests = () => {
     const OnGoingRequests = () => {
         return (
             <div className={styles.pendingRequests}>
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
+                <RequestCard type="onGoing" />
+                <RequestCard type="onGoing" />
+                <RequestCard type="onGoing" />
+                <RequestCard type="onGoing" />
+                <RequestCard type="onGoing" />
+                <RequestCard type="onGoing" />
             </div>
         );
     };
