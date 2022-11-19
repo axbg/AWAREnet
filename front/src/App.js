@@ -10,6 +10,7 @@ import { Event } from 'pages/event/Event';
 import { GlobalContextProvide } from './global-context';
 import './App.scss';
 import { ExploreEventsMap } from 'pages/explore-events-map/ExploreEventsMap';
+import { Requests } from 'pages/request/Requests';
 
 function App() {
     const darkTheme = createTheme({
@@ -48,6 +49,8 @@ function App() {
                     <Routes>
                         <Route path="/" exact element={<Home />} />
                         <Route path="/event" exact element={<Event />} />
+                        <Route path="/requests" exact element={<Requests />} />
+
                         <Route
                             path="/explore"
                             exact

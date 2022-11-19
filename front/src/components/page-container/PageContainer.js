@@ -6,6 +6,7 @@ export const PageContainer = (props) => {
     console.log(props);
     return (
         <Container
+            classes={{ root: styles.containerDiv }}
             className={`${styles.pageContainer}${
                 _.get(props, 'pageClassName') ? ' ' + props.pageClassName : ''
             }`}>

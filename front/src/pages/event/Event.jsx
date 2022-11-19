@@ -1,12 +1,23 @@
-import React from 'react';
-import { IconButton, Divider } from '@mui/material';
+import React, { useState } from 'react';
+import { Divider, Button } from '@mui/material';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 import styles from './Event.module.scss';
 
 export const Event = () => {
+    const [isUser] = useState(true);
+    const JoinAsPartner = () => {
+        console.log({ isUser });
+        return (
+            !isUser && (
+                <div className={styles.partner}>
+                    <Button variant="outlined">Join as partner</Button>
+                    <Divider classes={{ root: styles.divider }} />
+                </div>
+            )
+        );
+    };
     return (
         <div className={styles.eventsContainer}>
             <img
@@ -17,14 +28,13 @@ export const Event = () => {
             <div className={styles.subcontent}>
                 <div className={styles.heading}>
                     <span>Workshop: sortare selectiva</span>
-                    <IconButton aria-label="delete" disabled color="primary">
-                        <AddOutlinedIcon />
-                    </IconButton>
+                    {isUser && <Button variant="outlined">Join</Button>}
                 </div>
                 <span>
                     Powered by <strong>DevHacks & ONG</strong>
                 </span>
                 <Divider classes={{ root: styles.divider }} />
+                {JoinAsPartner()}
                 <div className={styles.infoContainer}>
                     <div className={styles.dateContainer}>
                         <CalendarMonthOutlinedIcon />
