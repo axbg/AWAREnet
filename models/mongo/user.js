@@ -10,6 +10,7 @@ module.exports = (db) => {
     password: String,
     name: String,
     type: String,
+    requestBackgroundCheck: Boolean,
     backgroundCheck: Boolean,
     preferredLocation: {
       lat: String,

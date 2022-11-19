@@ -52,6 +52,7 @@ const requestBackgroundCheck = async (userId) => {
     const user = await UserModel.findOne({_id: userId});
 
     if(user.type === USER_TYPE.COMPANY) {
+        user.requestBackgroundCheck = true;
         user.backgroundCheck = true;
         await user.save();
     }
