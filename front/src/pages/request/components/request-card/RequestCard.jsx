@@ -1,18 +1,26 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import DoneIcon from '@mui/icons-material/Done';
 import { Card, CardContent, CardHeader, Avatar, Divider } from '@mui/material';
 import { red } from '@mui/material/colors';
-
+import _ from 'lodash';
 import styles from './RequestCard.module.scss';
+import { RequestDetails } from '../request-details/RequestDetails';
 
 export const RequestCard = ({ ...props }) => {
+    const [isOpen, openDetailsModal] = useState(false);
+    const [request] = useState({ response: false });
     return (
         <div className={styles.customCard}>
             <Card
-                onClick={() => console.log('aici')}
+                onClick={() => openDetailsModal(true)}
                 classes={{ root: styles.card }}>
                 <CardHeader
-                    title="Workshop: Reciclarea selectiva"
+                    title={
+                        <div className={styles.customHeader}>
+                            <span>Workshop: Reciclarea selectiva </span>{' '}
+                            {_.get(request, 'response') && <DoneIcon />}
+                        </div>
+                    }
                     subheader="by ONG"
                     classes={{ root: styles.modalHeader }}
                     titleTypographyProps={{ variant: 'h6' }}
@@ -33,6 +41,13 @@ export const RequestCard = ({ ...props }) => {
                     </div>
                 </CardContent>
             </Card>
+            {isOpen && (
+                <RequestDetails
+                    isOpen={isOpen}
+                    handleClose={() => openDetailsModal(false)}
+                    request={request}
+                />
+            )}
         </div>
     );
 };
