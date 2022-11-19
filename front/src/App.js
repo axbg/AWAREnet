@@ -3,7 +3,10 @@ import { Route, Routes } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Home } from './Home';
+import { Events } from 'pages/events/Events';
+
 import { ResponsiveAppBar } from './components/navigation-bar/ResponsiveAppBar';
+import { BottomBar } from 'components/bottom-bar/BottomBar';
 import { GlobalContextProvide } from './global-context';
 import './App.scss';
 
@@ -36,12 +39,14 @@ function App() {
 
     return (
         <GlobalContextProvide>
-            <ResponsiveAppBar />
+            {/* <ResponsiveAppBar /> */}
+            {/* <BottomBar /> */}
             <ThemeProvider theme={darkTheme}>
                 <div className="app">
                     {/* DO NOT USE component like bellow in a Switch statement */}
                     <Routes>
                         <Route path="/" exact element={<Home />} />
+                        <Route path="/event" exact element={<Events />} />
                     </Routes>
                 </div>
             </ThemeProvider>
