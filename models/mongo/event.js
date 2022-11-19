@@ -1,5 +1,4 @@
 const {Schema} = require("mongoose");
-const Buffer = require("buffer");
 
 module.exports = (db) => {
   const EventSchema = new Schema({
@@ -12,13 +11,13 @@ module.exports = (db) => {
     type: String,
     pictures: [
       {
-        data: Buffer
+        type: String
       }
     ],
-    owners: [{type: String}],
+    owner: String,
     partners: [{type: String}],
     participants: [{ type: String }],
-    followUp: {description: String, pictures: [{ data: Buffer }]},
+    followUp: {description: String, pictures: [{ type: String }]},
     ratings: [{ userId: String, rating: Number }]
   });
 

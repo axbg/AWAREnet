@@ -11,6 +11,10 @@ const getExistingUser = async (email, password) => {
     }
 };
 
+const getUserType = async(userId) => {
+    return (await UserModel.findOne({_id: userId})).type;
+}
+
 const getUsers = async (types, ids) => {
     let query = {
         "$and": []
@@ -63,6 +67,7 @@ const requestBackgroundCheck = async (userId) => {
 module.exports = {
     getExistingUser,
     getUsers,
+    getUserType,
     createUser,
     getOrCreateUser,
     requestBackgroundCheck

@@ -8,6 +8,9 @@ module.exports = {
   GOOGLE_SECRET: process.env.GOOGLE_SECRET,
   FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
   FACEBOOK_SECRET: process.env.FACEBOOK_SECRET,
+  AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
+  AWS_ACCESS: process.env.AWS_ACCESS,
+  AWS_SECRET: process.env.AWS_SECRET,
   // eslint-disable-next-line max-len
   COOKIE_KEYS: process.env.COOKIE_KEYS ? process.env.COOKIE_KEYS.split(process.env.COOKIE_KEYS_SEPARATOR || '#') : ['key1', 'key2'],
   ENABLE_WEB_SOCKETS: !!+process.env.ENABLE_WEB_SOCKETS,
