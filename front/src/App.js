@@ -5,8 +5,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Home } from './Home';
 import { Event } from 'pages/event/Event';
 
-import { ResponsiveAppBar } from './components/navigation-bar/ResponsiveAppBar';
-import { BottomBar } from 'components/bottom-bar/BottomBar';
+// import { ResponsiveAppBar } from './components/navigation-bar/ResponsiveAppBar';
+// import { BottomBar } from 'components/bottom-bar/BottomBar';
 import { GlobalContextProvide } from './global-context';
 import './App.scss';
 
