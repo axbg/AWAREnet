@@ -4,9 +4,9 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
-import styles from './Events.module.scss';
+import styles from './Event.module.scss';
 
-export const Events = () => {
+export const Event = () => {
     return (
         <div className={styles.eventsContainer}>
             <img
@@ -22,7 +22,7 @@ export const Events = () => {
                     </IconButton>
                 </div>
                 <span>
-                    Powered by <strong>DevHacks</strong>
+                    Powered by <strong>DevHacks & ONG</strong>
                 </span>
                 <Divider classes={{ root: styles.divider }} />
                 <div className={styles.infoContainer}>

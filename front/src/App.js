@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Home } from './Home';
-import { Events } from 'pages/events/Events';
+import { Event } from 'pages/event/Event';
 
 import { ResponsiveAppBar } from './components/navigation-bar/ResponsiveAppBar';
 import { BottomBar } from 'components/bottom-bar/BottomBar';
@@ -46,7 +46,7 @@ function App() {
                     {/* DO NOT USE component like bellow in a Switch statement */}
                     <Routes>
                         <Route path="/" exact element={<Home />} />
-                        <Route path="/event" exact element={<Events />} />
+                        <Route path="/event" exact element={<Event />} />
                     </Routes>
                 </div>
             </ThemeProvider>
