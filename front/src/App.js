@@ -9,6 +9,7 @@ import { Event } from 'pages/event/Event';
 // import { BottomBar } from 'components/bottom-bar/BottomBar';
 import { GlobalContextProvide } from './global-context';
 import './App.scss';
+import { ExploreEventsMap } from 'pages/explore-events-map/ExploreEventsMap';
 
 function App() {
     const darkTheme = createTheme({
@@ -46,7 +47,12 @@ function App() {
                     {/* DO NOT USE component like bellow in a Switch statement */}
                     <Routes>
                         <Route path="/" exact element={<Home />} />
-                        <Route path="/event" exact element={<Event />} />
+                        <Route path="/event/:id" exact element={<Event />} />
+                        <Route
+                            path="/explore"
+                            exact
+                            element={<ExploreEventsMap />}
+                        />
                     </Routes>
                 </div>
             </ThemeProvider>
