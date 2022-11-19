@@ -33,7 +33,22 @@ const logout = async (ctx) => {
     ctx.body = {message: 'Logged out'};
 };
 
+const getUsers = async (ctx) => {
+    ctx.request.query.types = ctx.request.query.types ? ctx.request.query.types.split(",") : [USER_TYPE.NGO, USER_TYPE.COMPANY];
+
+    ctx.status = 200;
+    ctx.body = {users: await service.getUsers(ctx.request.query.types, ctx.request.query.ids)};
+}
+
+const requestBackgroundCheck = async (ctx) => {
+    await service.requestBackgroundCheck(ctx.session.passport.user._id);
+
+    ctx.status = 200;
+}
+
 module.exports = {
     login,
     logout,
+    getUsers,
+    requestBackgroundCheck
 };

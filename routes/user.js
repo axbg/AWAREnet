@@ -8,6 +8,10 @@ const router = new Router();
 router.post('/login/local', controller.login);
 
 // protecting individual routes
+router.get('/all', authenticated, controller.getUsers);
+
+router.post('/background-check', authenticated, controller.requestBackgroundCheck);
+
 router.get('/logout', authenticated, controller.logout);
 
 module.exports = router;

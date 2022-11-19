@@ -1,4 +1,5 @@
 const {UserModel} = require('../models');
+const {USER_TYPE} = require("../types/userType");
 
 const getExistingUser = async (email, password) => {
     const user = await UserModel.findOne({email: email});
@@ -8,6 +9,20 @@ const getExistingUser = async (email, password) => {
     } else {
         return false;
     }
+};
+
+const getUsers = async (types, ids) => {
+    let query = {
+        "$and": []
+    };
+
+    if(ids) {
+        query['$and'].push({_id: ids.split(",")});
+    }
+
+    query['$and'].push(({type: [...types]}));
+
+    return await UserModel.find(query).select(['-password']);
 }
 
 const createUser = async (email, password, name, type, preferredLocation) => {
@@ -33,8 +48,21 @@ const getOrCreateUser = async (profile) => {
     return {_id: newUser._id};
 };
 
+const requestBackgroundCheck = async (userId) => {
+    const user = await UserModel.findOne({_id: userId});
+
+    if(user.type === USER_TYPE.COMPANY) {
+        user.backgroundCheck = true;
+        await user.save();
+    }
+
+    return true;
+};
+
 module.exports = {
     getExistingUser,
+    getUsers,
     createUser,
     getOrCreateUser,
+    requestBackgroundCheck
 };
