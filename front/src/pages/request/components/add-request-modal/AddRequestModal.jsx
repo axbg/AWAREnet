@@ -1,37 +1,99 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import React, { useRef } from 'react';
+import { useGlobalContext } from 'global-context';
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4
-};
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Button,
+    TextField,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select
+} from '@mui/material';
+import styles from './AddRequestModal.module.scss';
 
-export const AddRequestModal = ({ isOpen, handleClose }) => {
+export const AddRequestModal = (props) => {
+    const { isOpen, handleClose, eventId } = props;
+    const {
+        state: { user }
+    } = useGlobalContext();
+
+    const saveRequest = () => {
+        //ownerId - from event obj
+        //partnerId - e user-ul in sine
+        //actionId from NGO obj
+        console.log(user);
+        handleClose(true);
+    };
     return (
-        <Modal
+        <Dialog
             open={isOpen}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description">
-            <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Text in a modal
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula.
-                </Typography>
-            </Box>
-        </Modal>
+            PaperProps={{ classes: { root: styles.dialog } }}
+            maxWidth="xl">
+            <DialogTitle>Add request</DialogTitle>
+            <DialogContent>
+                <DialogContentText>Create a new request</DialogContentText>
+                <Grid
+                    container
+                    direction="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    className={styles.requestContainer}>
+                    <Grid
+                        container
+                        direction="column"
+                        className="container-add-event">
+                        {eventId ? (
+                            <FormControl>
+                                <TextField
+                                    id="description"
+                                    label="description"
+                                    variant="outlined"
+                                />
+                            </FormControl>
+                        ) : (
+                            <FormControl fullWidth>
+                                <InputLabel id="action">Event</InputLabel>
+                                <Select
+                                    id="action"
+                                    label="Event"
+                                    // onChange={(event) =>
+                                    //     // setAction(event.target.value)
+                                    // }
+                                    // value={action}
+                                >
+                                    <MenuItem value={'Workshop1'}>
+                                        Workshop
+                                    </MenuItem>
+                                    <MenuItem value={'Workshop2'}>
+                                        Workshop2
+                                    </MenuItem>
+                                    <MenuItem value={'Workshop3'}>
+                                        Workshop3
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        )}
+                        <FormControl>
+                            <TextField
+                                id="description"
+                                label="description"
+                                variant="outlined"
+                            />
+                        </FormControl>
+                    </Grid>
+                </Grid>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => handleClose()}>Cancel</Button>
+                <Button onClick={() => saveRequest()}>Save</Button>
+            </DialogActions>
+        </Dialog>
     );
 };

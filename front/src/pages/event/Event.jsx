@@ -6,7 +6,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import styles from './Event.module.scss';
 
 export const Event = () => {
-    const [isUser] = useState(true);
+    const [isUser] = useState(false);
     const JoinAsPartner = () => {
         console.log({ isUser });
         return (
