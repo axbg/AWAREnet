@@ -3,12 +3,12 @@ const {s3} = require('../configurations/aws');
 const {AWS_S3_BUCKET_NAME} = require("../properties");
 const {v4: uuidv4} = require('uuid');
 
-const createEvent = async (body, userId) => {
-    const pictures = [];
+const uploadToS3 = async (pictures) => {
+    const uploadedPictures = [];
 
-    for(let i = 0; i < body.pictures.length; i++) {
+    for(let i = 0; i < pictures.length; i++) {
         const uniqueName = uuidv4();
-        const buffer = Buffer.from(body.pictures[i].replace(/^data:image\/\w+;base64,/, ""),'base64');
+        const buffer = Buffer.from(pictures[i].replace(/^data:image\/\w+;base64,/, ""),'base64');
 
         const uploaded = await s3.upload({
             Bucket: AWS_S3_BUCKET_NAME,
@@ -19,9 +19,15 @@ const createEvent = async (body, userId) => {
         }).promise();
 
         if(uploaded['Location']) {
-            pictures.push(uploaded['Location']);
+            uploadedPictures.push(uploaded['Location']);
         }
     }
+
+    return uploadedPictures;
+}
+
+const createEvent = async (body, userId) => {
+    const pictures = await uploadToS3(body.pictures);
 
     return (await EventModel.create({
         title: body.title,
@@ -36,16 +42,21 @@ const createEvent = async (body, userId) => {
     })).id;
 }
 
-const deleteEvent = async (body) => {
-
+const deleteEvent = async (id, userId) => {
+    return EventModel.findOneAndRemove({_id: id, owner: userId});
 }
 
 const searchEvents = async (body) => {
 
 }
 
-const addFollowUp = async (body) => {
+const addFollowUp = async (body, userId) => {
+    const event = await EventModel.findOne({_id: body.id, owner: userId});
 
+    if(event) {
+        event.followUp = {description: body.followUp.description, pictures: await uploadToS3(body.followUp.pictures)};
+        await event.save();
+    }
 }
 
 const join = async (body) => {

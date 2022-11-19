@@ -27,11 +27,9 @@ const createEvent = async (ctx) => {
 };
 
 const deleteEvent = async (ctx) => {
+    await service.deleteEvent(ctx.request.query.id, ctx.session.passport.user._id);
 
-
-    ctx.session = {passport: {user: {_id: userId}}};
     ctx.status = 200;
-    ctx.body = {message: 'Logged in'};
 };
 
 const searchEvents = async (ctx) => {
@@ -43,11 +41,9 @@ const searchEvents = async (ctx) => {
 };
 
 const addFollowUp = async (ctx) => {
+    await service.addFollowUp(ctx.request.body, ctx.session.passport.user._id)
 
-
-    ctx.session = {passport: {user: {_id: userId}}};
     ctx.status = 200;
-    ctx.body = {message: 'Logged in'};
 };
 
 const join = async (ctx) => {
