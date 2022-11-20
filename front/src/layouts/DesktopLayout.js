@@ -8,7 +8,7 @@ import { ResponsiveAppBar } from 'components/navigation-bar/ResponsiveAppBar';
 const pagesNGO = [
     { name: 'Dashboard', url: '/dashboard-ngo' },
     { name: 'Create Event', url: '/add-event' },
-    { name: 'Past Events', url: '/event-history' },
+    { name: 'Past Events', url: '/history' },
     { name: 'Requests', url: '/requests' },
     { name: 'Actions', url: '/actions' } //todo
 ];

@@ -5,11 +5,12 @@ export const CardCarouselContainer = styled('div')`
     width: 100%;
 `;
 
-export const TitleContainer = styled('div')``;
-
-export const Title = styled(Typography)`
-    margin-bottom: 10px;
+export const TitleContainer = styled('div')`
+    margin-bottom: 20px;
+    margin-top: 10px;
 `;
+
+export const Title = styled(Typography)``;
 
 export const SliderContainer = styled('div')`
     display: flex;
