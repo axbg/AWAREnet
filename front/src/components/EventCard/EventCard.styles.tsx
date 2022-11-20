@@ -38,7 +38,7 @@ export const CardContentContainer = styled('div')`
 
 export const CardActions = styled(MuiCardActions)`
     height: 4rem;
-    padding: 0;
+    padding: 0 !important;
     width: 100%;
     display: flex;
     align-items: center;
@@ -65,6 +65,7 @@ export const CardAction = styled('div')`
     border: 0.5px solid #ccc;
     display: flex;
     align-items: center;
+    margin: 0 !important; 
 
     &:nth-child(2) {
         margin-left: 0;
