@@ -6,7 +6,6 @@ import _ from 'lodash';
 import axios from 'axios';
 
 export const Dashboard = (props) => {
-    ///event/search?active=true&owned=true
     console.log(props);
     const [ownEvents, setOwnEvents] = useState([]);
     const [locationEvents, setLocationEvents] = useState([]);
