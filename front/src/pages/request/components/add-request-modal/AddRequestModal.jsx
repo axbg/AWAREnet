@@ -47,6 +47,10 @@ export const AddRequestModal = (props) => {
         axios.get('/event/search?active=true').then((res) => {
             console.log(res.data);
             setEvents(res.data.events);
+            // if(res.data.events.length > 0){
+
+            //     setSelectedEvent(res.data.events[0]._id)
+            // }
         });
     }, []);
 
@@ -82,7 +86,7 @@ export const AddRequestModal = (props) => {
                                     events.map((item) => (
                                         <MenuItem
                                             value={item._id}
-                                            key={item._id}>
+                                            key={item._id + item.title}>
                                             {item.title}
                                         </MenuItem>
                                     ))}

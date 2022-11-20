@@ -3,6 +3,7 @@ import { Button, Divider } from '@mui/material';
 import styles from './Requests.module.scss';
 import { RequestCard } from './components/request-card/RequestCard';
 import { PageContainer } from 'components/page-container/PageContainer';
+import _ from 'lodash';
 import axios from 'axios';
 
 export const Requests = () => {
@@ -30,7 +31,11 @@ export const Requests = () => {
         return (
             <div className={styles.pendingRequests}>
                 {incomingList.map((item) => (
-                    <RequestCard req={item} key={item._id} />
+                    <RequestCard
+                        req={item}
+                        key={_.uniqueId()}
+                        type="incoming"
+                    />
                 ))}
             </div>
         );
@@ -39,7 +44,11 @@ export const Requests = () => {
         return (
             <div className={styles.pendingRequests}>
                 {outgoingList.map((item) => (
-                    <RequestCard req={item} key={item._id} type="outgoing" />
+                    <RequestCard
+                        req={item}
+                        key={_.uniqueId()}
+                        type="outgoing"
+                    />
                 ))}
             </div>
         );

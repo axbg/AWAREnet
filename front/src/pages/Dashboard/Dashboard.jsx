@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CardCarousel } from 'components/CardCarousel/CardCarousel';
 import * as S from './Dashboard.styles';
+import CircularProgress from '@mui/material/CircularProgress';
 import { PageContainer } from 'components/page-container/PageContainer';
 import _ from 'lodash';
 import axios from 'axios';
@@ -32,31 +33,35 @@ export const Dashboard = (props) => {
     }, []);
     return (
         <PageContainer>
-            <S.DashboardContainer>
-                <S.TitleContainer>
-                    <S.Title variant="h6" color="text.primary">
-                        Dashboard
-                    </S.Title>
-                </S.TitleContainer>
-                <S.Grid container>
-                    {!isLoading && (
-                        <CardCarousel
-                            title={'Upcomming events'}
-                            events={ownEvents}
-                        />
-                    )}
-                </S.Grid>
-                {_.get(user, 'type') === 'user' && (
+            {!isLoading ? (
+                <CircularProgress />
+            ) : (
+                <S.DashboardContainer>
+                    <S.TitleContainer>
+                        <S.Title variant="h6" color="text.primary">
+                            Dashboard
+                        </S.Title>
+                    </S.TitleContainer>
                     <S.Grid container>
                         {!isLoading && (
                             <CardCarousel
-                                title={'Events in your area'}
-                                events={locationEvents}
+                                title={'Upcomming events'}
+                                events={ownEvents}
                             />
                         )}
                     </S.Grid>
-                )}
-            </S.DashboardContainer>
+                    {_.get(user, 'type') === 'user' && (
+                        <S.Grid container>
+                            {!isLoading && (
+                                <CardCarousel
+                                    title={'Events in your area'}
+                                    events={locationEvents}
+                                />
+                            )}
+                        </S.Grid>
+                    )}
+                </S.DashboardContainer>
+            )}
         </PageContainer>
     );
 };

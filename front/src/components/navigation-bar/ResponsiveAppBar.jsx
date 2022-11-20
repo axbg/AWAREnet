@@ -9,14 +9,13 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+import _ from 'lodash';
 export const ResponsiveAppBar = ({ pages }) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const user = JSON.parse(localStorage.getItem('user'));
     const navigate = useNavigate();
 
     const handleOpenNavMenu = (event) => {
@@ -115,7 +114,7 @@ export const ResponsiveAppBar = ({ pages }) => {
                             color: 'inherit',
                             textDecoration: 'none'
                         }}>
-                        LOGO
+                        {`AWAREnet - ${_.get(user, 'type')}`}
                     </Typography>
                     <Box
                         sx={{
