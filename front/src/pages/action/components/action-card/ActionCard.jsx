@@ -5,15 +5,20 @@ import {
     CardHeader,
     Button,
     Avatar,
+    IconButton,
     Divider
 } from '@mui/material';
 import { red } from '@mui/material/colors';
 import styles from './ActionCard.module.scss';
 import { ImageListModal } from '../image-list/ImageListModal';
+import AddIcon from '@mui/icons-material/Add';
 
-export const ActionCard = ({ ...props }) => {
+import _ from 'lodash';
+
+export const ActionCard = ({ action, ...props }) => {
     const [isOpen, openDetailsModal] = useState(false);
-    const [action] = useState({ pictures: [], description: '', ownerId: '' });
+    // const [action] = useState({ pictures: [], description: '', ownerId: '' });
+    console.lo;
     return (
         <div className={styles.customCard}>
             <Card
@@ -22,12 +27,20 @@ export const ActionCard = ({ ...props }) => {
                 <CardHeader
                     title={
                         <div className={styles.customHeader}>
-                            <span>Action: I need an event</span>{' '}
-                            <Button
-                                variant="outlined"
-                                onClick={() => openDetailsModal(true)}>
-                                View images
-                            </Button>
+                            <span>Action: {_.get(action, 'title', 'N/A')}</span>{' '}
+                            <div style={{ display: 'flex', gap: '5px' }}>
+                                <Button
+                                    variant="outlined"
+                                    onClick={() => openDetailsModal(true)}>
+                                    View images
+                                </Button>
+
+                                <Button
+                                    variant="outlined"
+                                    startIcon={<AddIcon />}>
+                                    Add request
+                                </Button>
+                            </div>
                         </div>
                     }
                     subheader="by Devhacks"
@@ -44,10 +57,8 @@ export const ActionCard = ({ ...props }) => {
                         </Avatar>
 
                         <span>
-                            <strong>NGO</strong> requested for a event having
-                            the budget of 3000euros. The scope is to have a
-                            better understanding of climate change and to clean
-                            up an area next to Bucharest.
+                            <strong>Company</strong>{' '}
+                            {_.get(action, 'description', 'N/A')}
                         </span>
                     </div>
                 </CardContent>
@@ -55,6 +66,8 @@ export const ActionCard = ({ ...props }) => {
             {isOpen && (
                 <ImageListModal
                     isOpen={isOpen}
+                    data={_.get(action, 'pictures', [])}
+                    action={action}
                     handleClose={() => openDetailsModal(false)}
                 />
             )}

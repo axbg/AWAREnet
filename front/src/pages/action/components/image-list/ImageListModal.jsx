@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ImageGallery from 'react-image-gallery';
 
 import {
@@ -12,24 +12,17 @@ import {
 
 import styles from './ImageListModal.module.scss';
 import _ from 'lodash';
+import { useState } from 'react';
 
 export const ImageListModal = (props) => {
-    const { isOpen, handleClose, action } = props;
-
-    const images = [
-        {
-            original: 'https://picsum.photos/id/1018/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1018/250/150/'
-        },
-        {
-            original: 'https://picsum.photos/id/1015/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1015/250/150/'
-        },
-        {
-            original: 'https://picsum.photos/id/1019/1000/600/',
-            thumbnail: 'https://picsum.photos/id/1019/250/150/'
-        }
-    ];
+    const { isOpen, handleClose, data, action } = props;
+    const [images, setImages] = useState([]);
+    useEffect(() => {
+        const newImg = data.map((item) => {
+            return { original: item, thumbnail: item };
+        });
+        setImages(newImg);
+    }, [data]);
 
     return (
         <Dialog

@@ -19,6 +19,7 @@ import { MobileLayout } from 'layouts/MobileLayout';
 import { ExploreEvents } from 'pages/explore-events/ExploreEvents';
 import { DesktopLayout } from 'layouts/DesktopLayout';
 import { CompaniesLeaderboard } from 'pages/leaderboard/CompaniesLeaderboard';
+// import { DashboardNGO } from 'pages/Dashboard/DasboardNGO';
 
 function App() {
     const darkTheme = createTheme({
@@ -56,7 +57,6 @@ function App() {
                     {/* DO NOT USE component like bellow in a Switch statement */}
                     {/* TODO: according to user role, this is just temporary */}
                     <Routes>
-                        <Route path="/" exact element={<Home />} />
                         <Route path="/login" exact element={<Login />} />
 
                         <Route element={<DesktopLayout />}>
@@ -64,13 +64,27 @@ function App() {
                         </Route>
                         <Route element={<DesktopLayout />}>
                             <Route
+                                path="/dashboard-ngo"
+                                exact
+                                element={<Dashboard type="ngo" />}
+                            />
+                            <Route
+                                path="/dashboard-company"
+                                exact
+                                element={<Dashboard type="company" />}
+                            />
+                            <Route
                                 path="/requests"
                                 exact
                                 element={<Requests />}
                             />
+                            <Route
+                                path="/actions"
+                                exact
+                                element={<Actions />}
+                            />
                         </Route>
 
-                        <Route path="/actions" exact element={<Actions />} />
                         <Route element={<DesktopLayout />}>
                             <Route
                                 path="/add-event"

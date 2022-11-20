@@ -3,11 +3,10 @@ import { CardCarousel } from 'components/CardCarousel/CardCarousel';
 import * as S from './Dashboard.styles';
 import { useGlobalContext } from 'global-context';
 import { PageContainer } from 'components/page-container/PageContainer';
-import _ from 'lodash';
 
-export const Dashboard = (props) => {
+export const DashboardNGO = () => {
     ///event/search?active=true&owned=true
-    console.log(props);
+
     return (
         <PageContainer>
             <S.DashboardContainer>
@@ -17,14 +16,8 @@ export const Dashboard = (props) => {
                     </S.Title>
                 </S.TitleContainer>
                 <S.Grid container>
-                    <CardCarousel title={'Upcomming events'} />
+                    <CardCarousel title={'My upcomming events'} />
                 </S.Grid>
-                {!_.get(props, 'type') === 'company' &&
-                    _.get(props, 'type') === 'ngo' && (
-                        <S.Grid container>
-                            <CardCarousel title={'Events in your area'} />
-                        </S.Grid>
-                    )}
             </S.DashboardContainer>
         </PageContainer>
     );

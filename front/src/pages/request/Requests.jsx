@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useGlobalContext } from 'global-context';
+
 import { IconButton, Button, Divider } from '@mui/material';
 import styles from './Requests.module.scss';
 import AddIcon from '@mui/icons-material/Add';
 import { RequestCard } from './components/request-card/RequestCard';
 import { PageContainer } from 'components/page-container/PageContainer';
 import { AddRequestModal } from './components/add-request-modal/AddRequestModal';
+import axios from 'axios';
 
 export const Requests = () => {
-    const [requests] = useState(true);
+    const [requests, setRequests] = useState(true);
+    // const {
+    //     state: { user }
+    // } = useGlobalContext();
 
+    // console.log(user);
     const [openModal, setOpenAddModal] = useState(false);
     const [showPending, setShowPending] = useState(true);
+    const user = JSON.parse(localStorage.getItem('user'));
 
+    useEffect(() => {
+        axios.get(`/request/search?partner=${user.userId}`).then((res) => {
+            console.log(res);
+            setRequests(res.data);
+        });
+    }, []);
     const PendingRequests = () => {
         return (
             <div className={styles.pendingRequests}>
@@ -56,23 +70,11 @@ export const Requests = () => {
                             On going
                         </Button>
                     </div>
-                    <IconButton
-                        color="primary"
-                        aria-label="grid view"
-                        onClick={() => setOpenAddModal(true)}>
-                        <AddIcon />
-                    </IconButton>
                 </div>
                 <Divider classes="divider" />
 
                 {showPending ? <PendingRequests /> : <OnGoingRequests />}
             </div>
-            {openModal && (
-                <AddRequestModal
-                    isOpen={openModal}
-                    handleClose={() => setOpenAddModal(false)}
-                />
-            )}
         </PageContainer>
     );
 };

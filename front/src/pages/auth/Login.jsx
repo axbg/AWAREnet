@@ -20,11 +20,19 @@ const Login = () => {
 
     const goToDashboard = () => {
         //handle login
-        axios.post('/user/login/local', user).then((res) => {
-            console.log(res);
-            dispatch(addUser({ userId: res.data.id, role: res.data.type }));
-            navigate('/dashboard', { replace: false });
-        });
+        axios
+            .post('/user/login/local', user, { withCredentials: true })
+            .then((res) => {
+                console.log(res);
+                dispatch(addUser({ userId: res.data.id, type: res.data.type }));
+                if (res.data.type === 'ngo') {
+                    navigate('/dashboard-ngo', { replace: false });
+                } else if (res.data.type === 'company') {
+                    navigate('/dashboard-company', { replace: false });
+                } else {
+                    navigate('/dashboard', { replace: false });
+                }
+            });
     };
 
     return (

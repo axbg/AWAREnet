@@ -17,20 +17,30 @@ import {
 } from '@mui/material';
 import styles from './AddRequestModal.module.scss';
 import _ from 'lodash';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 export const AddRequestModal = (props) => {
     const { isOpen, handleClose, event } = props;
-    const {
-        state: { user }
-    } = useGlobalContext();
+    const [events, setEvents] = useState([]);
+    const [selectedEvent, setSelectedEvent] = useState(0);
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const saveRequest = () => {
         //ownerId - from event obj
         //partnerId - e user-ul in sine
         //actionId from NGO obj
-        console.log(user);
+        console.log(selectedEvent, user);
         handleClose(true);
     };
+    useEffect(() => {
+        axios.get('/event/search?active=true').then((res) => {
+            console.log(res.data);
+            setEvents(res.data.events);
+        });
+    }, []);
+
     return (
         <Dialog
             open={isOpen}
@@ -64,20 +74,18 @@ export const AddRequestModal = (props) => {
                                 <Select
                                     id="action"
                                     label="Event"
-                                    // onChange={(event) =>
-                                    //     // setAction(event.target.value)
-                                    // }
-                                    // value={action}
-                                >
-                                    <MenuItem value={'Workshop1'}>
-                                        Workshop
-                                    </MenuItem>
-                                    <MenuItem value={'Workshop2'}>
-                                        Workshop2
-                                    </MenuItem>
-                                    <MenuItem value={'Workshop3'}>
-                                        Workshop3
-                                    </MenuItem>
+                                    onChange={(event) =>
+                                        setSelectedEvent(event.target.value)
+                                    }
+                                    value={selectedEvent}>
+                                    {events.length !== 0 &&
+                                        events.map((item) => (
+                                            <MenuItem
+                                                value={item.id}
+                                                key={item.id}>
+                                                {item.title}
+                                            </MenuItem>
+                                        ))}
                                 </Select>
                             </FormControl>
                         )}
