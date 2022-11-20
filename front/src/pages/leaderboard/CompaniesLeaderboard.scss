@@ -1,0 +1,24 @@
+.companies-leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.company-card {
+    border: 2px solid black !important;
+    border-radius: 10px !important;
+    &-header .MuiCardHeader-title {
+        font-weight: bold !important;
+    }
+    &-content {
+        .company-rating {
+            display: flex;
+            font-weight: bold;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+    }
+}

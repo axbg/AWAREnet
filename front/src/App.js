@@ -16,6 +16,7 @@ import { AddEvent } from 'pages/add-event/AddEvent';
 import { MobileLayout } from 'layouts/MobileLayout';
 import { ExploreEvents } from 'pages/explore-events/ExploreEvents';
 import { DesktopLayout } from 'layouts/DesktopLayout';
+import { CompaniesLeaderboard } from 'pages/leaderboard/CompaniesLeaderboard';
 
 function App() {
     const darkTheme = createTheme({
@@ -72,6 +73,11 @@ function App() {
                                 path="/explore"
                                 exact
                                 element={<ExploreEvents />}
+                            />
+                            <Route
+                                path="/leaderboard"
+                                exact
+                                element={<CompaniesLeaderboard />}
                             />
                         </Route>
                     </Routes>
