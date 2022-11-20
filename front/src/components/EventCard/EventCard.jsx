@@ -10,7 +10,6 @@ export const EventCard = ({
     renderSecondCTA = null
 }) => {
     const navigate = useNavigate();
-    const [event, setE] = useState({ eventId: 1 });
     const {
         description,
         pictures,
@@ -40,7 +39,7 @@ export const EventCard = ({
 
     const navigateToEvent = () => {
         navigate('/event', {
-            state: { event: event }
+            state: { event: eventData }
         });
     };
     return (

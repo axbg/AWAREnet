@@ -7,12 +7,14 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Button
+    Button,
+    Chip
 } from '@mui/material';
 
 import styles from './ImageListModal.module.scss';
-import _ from 'lodash';
+import _, { isEmpty } from 'lodash';
 import { useState } from 'react';
+import Info from '@mui/icons-material/Info';
 
 export const ImageListModal = (props) => {
     const { isOpen, handleClose, data, action } = props;
@@ -35,9 +37,17 @@ export const ImageListModal = (props) => {
                 <DialogContentText>
                     {_.get(action, 'description', "See what's has improved")}
                 </DialogContentText>
-                <div className={styles.imageContainer}>
-                    <ImageGallery items={images} />
-                </div>
+                {!isEmpty(images) ? (
+                    <div className={styles.imageContainer}>
+                        <ImageGallery items={images} />
+                    </div>
+                ) : (
+                    <Chip
+                        sx={{ marginTop: '10px' }}
+                        icon={<Info />}
+                        label="No images"
+                    />
+                )}
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => handleClose()}>Close</Button>

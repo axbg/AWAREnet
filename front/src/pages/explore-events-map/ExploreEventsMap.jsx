@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import './ExploreEventsMap.scss';
 import { Button, Grid, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const calculateTimeDifference = (eventTs) => {
     const now = moment();
@@ -31,6 +32,7 @@ const ExploreEventsMap = ({ events }) => {
     });
 
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const navigate = useNavigate();
 
     return (
         <Map
@@ -93,7 +95,12 @@ const ExploreEventsMap = ({ events }) => {
                                     <Button
                                         type="primary"
                                         variant="contained"
-                                        size="small">
+                                        size="small"
+                                        onClick={() =>
+                                            navigate('/event', {
+                                                state: { event: selectedEvent }
+                                            })
+                                        }>
                                         Go to event page
                                     </Button>
                                 </Grid>
