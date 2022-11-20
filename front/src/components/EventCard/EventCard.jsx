@@ -32,7 +32,9 @@ export const EventCard = ({
                 `https://geocode.xyz/${location[0]?.lat},${location[0]?.long}&auth=534725829980201541415x33417?json=1`
             )
             .then((res) => {
-                setDecodedLocation(res.data.osmtags.name_en);
+                setDecodedLocation(
+                    res.data.osmtags.name_en || res.data.osmtags.name
+                );
             });
     }, []);
 
