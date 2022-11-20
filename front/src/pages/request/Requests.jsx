@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconButton, Button } from '@mui/material';
+import { IconButton, Button, Divider } from '@mui/material';
 import styles from './Requests.module.scss';
 import AddIcon from '@mui/icons-material/Add';
 import { RequestCard } from './components/request-card/RequestCard';
@@ -63,6 +63,8 @@ export const Requests = () => {
                         <AddIcon />
                     </IconButton>
                 </div>
+                <Divider classes="divider" />
+
                 {showPending ? <PendingRequests /> : <OnGoingRequests />}
             </div>
             {openModal && (

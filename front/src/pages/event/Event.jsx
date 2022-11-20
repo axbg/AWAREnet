@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router';
 import { Divider, Button } from '@mui/material';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
@@ -10,6 +11,8 @@ export const Event = (props) => {
     const [isUser] = useState(false);
     const [isOpen, setOpenModal] = useState(false);
     const [event] = useState({});
+    const { state } = useLocation();
+    console.log({ state });
     const JoinAsPartner = () => {
         console.log({ isUser });
         return (

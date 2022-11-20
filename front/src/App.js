@@ -64,8 +64,16 @@ function App() {
                             exact
                             element={<Dashboard />}
                         />
-                        <Route path="/event" exact element={<Event />} />
-                        <Route path="/requests" exact element={<Requests />} />
+                        <Route element={<DesktopLayout />}>
+                            <Route path="/event" exact element={<Event />} />
+                        </Route>
+                        <Route element={<DesktopLayout />}>
+                            <Route
+                                path="/requests"
+                                exact
+                                element={<Requests />}
+                            />
+                        </Route>
                         <Route
                             path="/event-history"
                             exact

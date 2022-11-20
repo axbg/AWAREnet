@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './EventCard.styles.tsx';
+import { useNavigate } from 'react-router-dom';
 
 export const EventCard = ({
     id,
@@ -13,8 +14,16 @@ export const EventCard = ({
     renderFirstCTA = null,
     renderSecondCTA = null
 }) => {
+    const navigate = useNavigate();
+    const [event] = useState({ eventId: 1 });
+
+    const navigateToEvent = () => {
+        navigate('/event', {
+            state: { event: event }
+        });
+    };
     return (
-        <S.Card variant="outlined">
+        <S.Card variant="outlined" onClick={() => navigateToEvent()}>
             <S.CardMedia
                 component="img"
                 image={
@@ -40,7 +49,9 @@ export const EventCard = ({
                 </S.CardContent>
                 <S.CardActions>
                     <S.CardAction>
-                        {renderFirstCTA ? renderFirstCTA() : (
+                        {renderFirstCTA ? (
+                            renderFirstCTA()
+                        ) : (
                             <>
                                 <S.CalendarMonth />
                                 {timestamp || 'Maine la 6'}
@@ -48,7 +59,9 @@ export const EventCard = ({
                         )}
                     </S.CardAction>
                     <S.CardAction>
-                        {renderSecondCTA ? renderSecondCTA() : (
+                        {renderSecondCTA ? (
+                            renderSecondCTA()
+                        ) : (
                             <>
                                 <S.Place />
                                 {location || 'Unirii'}

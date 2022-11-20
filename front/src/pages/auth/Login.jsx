@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { addUser, useGlobalContext } from '../../global-context';
-import { Box, Grid, Button, TextField } from '@mui/material';
+import { Grid, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import illustration from 'assets/join-login.svg';
+import axios from 'axios';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -19,6 +20,9 @@ const Login = () => {
 
     const goToDashboard = () => {
         //handle login
+        axios.post('/login').then((res) => {
+            console.log(res);
+        });
         navigate('/', { replace: false });
     };
 
