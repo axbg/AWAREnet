@@ -3,6 +3,7 @@ import * as S from './EventCard.styles.tsx';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 export const EventCard = ({
     eventData,
@@ -23,19 +24,6 @@ export const EventCard = ({
     const image = pictures[0];
     const partnerCount = partners?.length;
     const timestamp = timestampStart;
-    const [decodedLocation, setDecodedLocation] = useState('');
-
-    useEffect(() => {
-        axios
-            .get(
-                `https://geocode.xyz/${location[0]?.lat},${location[0]?.long}&auth=534725829980201541415x33417?json=1`
-            )
-            .then((res) => {
-                setDecodedLocation(
-                    res.data.osmtags.name_en || res.data.osmtags.name
-                );
-            });
-    }, []);
 
     const navigateToEvent = () => {
         navigate('/event', {
@@ -83,14 +71,7 @@ export const EventCard = ({
                         )}
                     </S.CardAction>
                     <S.CardAction>
-                        {renderSecondCTA ? (
-                            renderSecondCTA()
-                        ) : (
-                            <>
-                                <S.Place />
-                                {decodedLocation}
-                            </>
-                        )}
+                        {renderSecondCTA ? renderSecondCTA() : null}
                     </S.CardAction>
                 </S.CardActions>
             </S.CardContentContainer>

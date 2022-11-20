@@ -13,7 +13,7 @@ export const DashboardNGO = () => {
                     </S.Title>
                 </S.TitleContainer>
                 <S.Grid container>
-                    <CardCarousel title={'My upcomming events'} />
+                    <CardCarousel title={'My upcoming events'} />
                 </S.Grid>
             </S.DashboardContainer>
         </PageContainer>
