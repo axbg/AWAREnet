@@ -6,7 +6,7 @@ export const Dashboard = () => {
     return (
         <S.DashboardContainer>
             <S.Grid container>
-                <CardCarousel title={'BINE IOANA'} />
+                <CardCarousel title={'Upcomming events'} />
             </S.Grid>
         </S.DashboardContainer>
     );
