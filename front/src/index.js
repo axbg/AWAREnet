@@ -12,7 +12,7 @@ axios.defaults.baseURL =
         ? 'http://172.20.10.9:8080/api'
         : 'api';
 // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-
+axios.defaults.withCredentials = true;
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
