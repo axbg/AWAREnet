@@ -18,6 +18,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { isEmpty } from 'lodash';
 
 import './AddEvent.scss';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddEvent = () => {
     const [eventDateTime, setEventDateTime] = useState();
@@ -28,6 +30,7 @@ const AddEvent = () => {
     const [type, setType] = useState('');
     const [selectedLocation, setSelectedLocation] = useState({});
     const [pictures, setPictures] = useState([]);
+    const navigate = useNavigate();
 
     const postEvent = () => {
         const newEvent = {
@@ -42,7 +45,9 @@ const AddEvent = () => {
             ],
             pictures
         };
-        console.log(newEvent);
+        axios
+            .post('/event/create', { ...newEvent }, { withCredentials: true })
+            .then((res) => navigate('/dashboard'));
     };
 
     const [viewport, setViewport] = useState({
