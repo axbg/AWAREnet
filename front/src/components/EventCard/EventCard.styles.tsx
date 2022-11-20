@@ -16,6 +16,8 @@ export const Card = styled(MuiCard)`
     border-radius: 10px !important;
     max-width: 400px;
     width: 100%;
+    height: 100%;
+    max-height:fit-content;
 
     &:hover {
         cursor: pointer;
