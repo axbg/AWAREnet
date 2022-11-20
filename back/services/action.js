@@ -1,4 +1,4 @@
-const {ActionModel, EventModel} = require('../models');
+const {ActionModel, EventModel, UserModel} = require('../models');
 
 const {uploadToS3} = require('./event');
 const {getUserType} = require("./user");
@@ -70,7 +70,21 @@ const searchAction = async (body, userId) => {
         sort[sortField] = -1;
     }
 
-    return query["$and"].length !== 0 ? await ActionModel.find(query).sort(sort) : await ActionModel.find().sort(sort);
+    const actions = query["$and"].length !== 0 ? await ActionModel.find(query).sort(sort) : await ActionModel.find().sort(sort);
+
+    const completeActions = [];
+    for(let i = 0; i < actions.length; i++) {
+        completeActions.push({
+            _id: actions[i]._id,
+            title: actions[i].title,
+            description: actions[i].description,
+            active: actions[i].active,
+            timestampCreated: actions[i].timestampCreated,
+            owner: await UserModel.find({_id: actions[i].owner}).select(["-password"])
+        });
+    }
+
+    return completeActions;
 }
 
 const deactivateAction = async (body, userId) => {

@@ -1,4 +1,4 @@
-const {EventModel} = require('../models');
+const {EventModel, UserModel} = require('../models');
 const {s3} = require('../configurations/aws');
 const {AWS_S3_BUCKET_NAME} = require("../properties");
 const {v4: uuidv4} = require('uuid');
@@ -146,7 +146,12 @@ const searchEvents = async (body, userId) => {
 
         orderedEvents.sort((a, b) => a.distance - b.distance);
     } else {
-        orderedEvents = events;
+        orderedEvents = events.map(element => ({...spreadEvent(element)}));
+    }
+
+    for(let i = 0; i < orderedEvents.length; i++) {
+        orderedEvents[i]['partners'] = await UserModel.find({_id: orderedEvents[i]['partners']}).select(["-password"]);
+        orderedEvents[i]['owner'] = await UserModel.findOne({_id: orderedEvents[i]['owner']}).select(["-password"]);
     }
 
     return orderedEvents;
