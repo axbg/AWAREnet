@@ -13,6 +13,7 @@ const createAction = async (body, userId) => {
         const pictures = await uploadToS3(body.pictures);
         return (await ActionModel.create(
             {
+                title: body.title,
                 description: body.description,
                 pictures: [...pictures],
                 active: true,

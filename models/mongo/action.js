@@ -2,6 +2,7 @@ const {Schema} = require('mongoose');
 
 module.exports = (db) => {
   const ActionSchema = new Schema({
+    title: String,
     description: String,
     pictures: [{ type: String }],
     active: Boolean,

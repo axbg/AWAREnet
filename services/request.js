@@ -92,10 +92,11 @@ const searchRequest = async(body, userId) => {
     const completeRequests = [];
     for(let i = 0; i < requests.length; i++) {
         completeRequests.push({
+            id: requests[i]["_id"],
             event: await EventModel.findOne({_id: requests[i]["event"]}),
-            actionData: await ActionModel.findOne({_id: requests[i]["action"]}),
-            ownerData: await UserModel.findOne({_id: requests[i]["owner"]}),
-            partnerData: await UserModel.findOne({_id: requests[i]["partner"]}),
+            action: await ActionModel.findOne({_id: requests[i]["action"]}),
+            owner: await UserModel.findOne({_id: requests[i]["owner"]}),
+            partner: await UserModel.findOne({_id: requests[i]["partner"]}),
             description: requests[i]["description"],
             response: requests[i]["response"],
             active: requests[i]["active"]
@@ -115,10 +116,28 @@ const deactivateRequest = async(body, userId) => {
 }
 
 const respondToRequest = async(body, userId) => {
-    const request = await RequestModel.findOne({_id: body.id, owner: userId});
+    const userType = await getUserType(userId);
+    const request = await RequestModel.findOne({_id: body.id, partner: userId});
 
-    if(request) {
-        request.response = body.response === "true";
+    if(request && request.response === null) {
+        if(body.response === "true") {
+            request.response = true;
+            const event = await EventModel.findOne({_id: request.event});
+
+            switch (userType) {
+                case USER_TYPE.NGO:
+                    event.partners.push(request.partner);
+                    break;
+                case USER_TYPE.COMPANY:
+                    event.partners.push(userId);
+                    break;
+            }
+
+            event.save();
+
+        } else {
+            request.response = false;
+        }
         await request.save();
     }
 }
