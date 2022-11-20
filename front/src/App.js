@@ -11,6 +11,8 @@ import { GlobalContextProvide } from './global-context';
 import './App.scss';
 import { Requests } from 'pages/request/Requests';
 import { Login } from 'pages/auth/Login';
+import { Dashboard } from 'pages/Dashboard/Dashboard';
+import { EventHistory } from 'pages/EventHistory/EventHistory';
 import { Actions } from 'pages/action/Actions';
 import { AddEvent } from 'pages/add-event/AddEvent';
 import { MobileLayout } from 'layouts/MobileLayout';
@@ -56,8 +58,19 @@ function App() {
                         <Route path="/" exact element={<Home />} />
                         <Route path="/login" exact element={<Login />} />
 
+                        <Route
+                            path="/dashboard"
+                            exact
+                            element={<Dashboard />}
+                        />
                         <Route path="/event" exact element={<Event />} />
                         <Route path="/requests" exact element={<Requests />} />
+                        <Route
+                            path="/event-history"
+                            exact
+                            element={<EventHistory />}
+                        />
+
                         <Route path="/actions" exact element={<Actions />} />
                         <Route element={<DesktopLayout />}>
                             <Route

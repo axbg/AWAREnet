@@ -14,16 +14,39 @@ export const Card = styled(MuiCard)`
    flex: 0 0 auto;
    border: 2px solid black !important;
    border-radius: 10px !important;
+   height: 100%;
+   max-height: 500px;
+   max-width: 400px;
+   width: 100%;
+
+   &:hover {
+    cursor: pointer;
+   }
+
+  @media screen and (max-width: 450px){
+    width: 350px;
+  }
+
 `;
+
+export const CardContentContainer = styled('div')`
+    height: 60%;
+    display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+`;
+
 export const CardActions = styled(MuiCardActions)`
     height: 4rem;
-    padding: 0;
+    padding: 0 !important;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;    
 `;
-export const CardContent = styled(MuiCardContent)``;
+export const CardContent = styled(MuiCardContent)`
+`;
+
 export const CardMedia = styled(MuiCardMedia)`
     height: 200px;
 `;
@@ -42,6 +65,7 @@ export const CardAction = styled('div')`
     border: 0.5px solid #ccc;
     display: flex;
     align-items: center;
+    margin: 0 !important; 
 
     &:nth-child(2) {
         margin-left: 0;
