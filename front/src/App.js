@@ -48,6 +48,8 @@ function App() {
         }
     });
 
+    const user = JSON.parse(localStorage.getItem('user'));
+
     return (
         <GlobalContextProvide>
             {/* <ResponsiveAppBar /> */}
@@ -59,9 +61,15 @@ function App() {
                     <Routes>
                         <Route path="/login" exact element={<Login />} />
 
-                        <Route element={<DesktopLayout />}>
-                            <Route path="/event" exact element={<Event />} />
-                        </Route>
+                        {user.type !== 'user' && (
+                            <Route element={<DesktopLayout />}>
+                                <Route
+                                    path="/event"
+                                    exact
+                                    element={<Event />}
+                                />
+                            </Route>
+                        )}
                         <Route element={<DesktopLayout />}>
                             <Route
                                 path="/dashboard-ngo"
@@ -118,6 +126,13 @@ function App() {
                                 exact
                                 element={<EventHistory />}
                             />
+                            {user.type === 'user' && (
+                                <Route
+                                    path="/event"
+                                    exact
+                                    element={<Event />}
+                                />
+                            )}
                         </Route>
                     </Routes>
                 </div>
