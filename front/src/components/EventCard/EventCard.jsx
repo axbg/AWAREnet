@@ -1,21 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './EventCard.styles.tsx';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import axios from 'axios';
 
 export const EventCard = ({
-    id,
-    title,
-    description,
-    image,
-    host,
-    partnerCount,
-    timestamp,
-    location,
+    eventData,
     renderFirstCTA = null,
     renderSecondCTA = null
 }) => {
     const navigate = useNavigate();
-    const [event] = useState({ eventId: 1 });
+    const [event, setE] = useState({ eventId: 1 });
+    const {
+        description,
+        pictures,
+        title,
+        owner,
+        partners,
+        timestampStart,
+        location
+    } = eventData;
+    const host = owner[0]?.name;
+    const image = pictures[0];
+    const partnerCount = partners?.length;
+    const timestamp = timestampStart;
+    const [decodedLocation, setDecodedLocation] = useState('');
+
+    useEffect(() => {
+        axios
+            .get(
+                `https://geocode.xyz/${location[0]?.lat},${location[0]?.long}&auth=534725829980201541415x33417?json=1`
+            )
+            .then((res) => {
+                setDecodedLocation(
+                    res.data.osmtags.name_en || res.data.osmtags.name
+                );
+            });
+    }, []);
 
     const navigateToEvent = () => {
         navigate('/event', {
@@ -54,7 +75,11 @@ export const EventCard = ({
                         ) : (
                             <>
                                 <S.CalendarMonth />
-                                {timestamp || 'Maine la 6'}
+                                {(timestamp &&
+                                    moment(timestamp).format(
+                                        'DD-MM-YYYY HH:mm'
+                                    )) ||
+                                    'Maine la 6'}
                             </>
                         )}
                     </S.CardAction>
@@ -64,7 +89,7 @@ export const EventCard = ({
                         ) : (
                             <>
                                 <S.Place />
-                                {location || 'Unirii'}
+                                {decodedLocation}
                             </>
                         )}
                     </S.CardAction>
