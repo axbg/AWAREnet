@@ -1,12 +1,20 @@
 import { Button, ButtonGroup } from '@mui/material';
+import axios from 'axios';
 import { ExploreEventsList } from 'pages/explore-events-list/ExploreEventsList';
 import { ExploreEventsMap } from 'pages/explore-events-map/ExploreEventsMap';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import './ExploreEvents.scss';
 
 const ExploreEvents = () => {
     const [selectedMode, setSelectedMode] = useState(1);
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('/event/search', { withCredentials: true })
+            .then((res) => setEvents(res.data.events));
+    }, []);
 
     return (
         <div className="explore-events">
@@ -30,9 +38,9 @@ const ExploreEvents = () => {
             </ButtonGroup>
             <div className="explore-container">
                 {selectedMode === 1 ? (
-                    <ExploreEventsMap />
+                    <ExploreEventsMap events={events} />
                 ) : (
-                    <ExploreEventsList />
+                    <ExploreEventsList events={events} />
                 )}
             </div>
         </div>

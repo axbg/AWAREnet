@@ -3,12 +3,12 @@ import React from 'react';
 
 import './ExploreEventsList.scss';
 
-const ExploreEventsList = () => {
+const ExploreEventsList = ({ events }) => {
     return (
         <div className="explore-events-list">
-            <EventCard />
-            <EventCard />
-            <EventCard />
+            {events.map((ev, index) => (
+                <EventCard key={index} eventData={ev} />
+            ))}
         </div>
     );
 };
