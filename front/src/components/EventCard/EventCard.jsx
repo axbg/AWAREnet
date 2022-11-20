@@ -2,13 +2,16 @@ import React from 'react';
 import * as S from './EventCard.styles.tsx';
 
 export const EventCard = ({
+    id,
     title,
     description,
     image,
     host,
     partnerCount,
     timestamp,
-    location
+    location,
+    renderFirstCTA = null,
+    renderSecondCTA = null
 }) => {
     return (
         <S.Card variant="outlined">
@@ -37,12 +40,20 @@ export const EventCard = ({
                 </S.CardContent>
                 <S.CardActions>
                     <S.CardAction>
-                        <S.CalendarMonth />
-                        {timestamp || 'Maine la 6'}
+                        {renderFirstCTA ? renderFirstCTA() : (
+                            <>
+                                <S.CalendarMonth />
+                                {timestamp || 'Maine la 6'}
+                            </>
+                        )}
                     </S.CardAction>
                     <S.CardAction>
-                        <S.Place />
-                        {location || 'Unirii'}
+                        {renderSecondCTA ? renderSecondCTA() : (
+                            <>
+                                <S.Place />
+                                {location || 'Unirii'}
+                            </>
+                        )}
                     </S.CardAction>
                 </S.CardActions>
             </S.CardContentContainer>
