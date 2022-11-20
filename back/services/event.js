@@ -22,6 +22,7 @@ const computeDistance = (coord1, coord2) => {
 
 const spreadEvent = (event) => {
     return {
+        _id: event._id,
         title: event.title,
         shortDescription: event.shortDescription,
         description: event.description,
@@ -152,6 +153,20 @@ const searchEvents = async (body, userId) => {
     for(let i = 0; i < orderedEvents.length; i++) {
         orderedEvents[i]['partners'] = await UserModel.find({_id: orderedEvents[i]['partners']}).select(["-password"]);
         orderedEvents[i]['owner'] = await UserModel.findOne({_id: orderedEvents[i]['owner']}).select(["-password"]);
+    }
+
+    if(body.notRated) {
+        orderedEvents = orderedEvents.filter(event => {
+            for(let i = 0; i < event.ratings; i++) {
+                if(event.ratings[i].userId === userId) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        orderedEvents = orderedEvents.filter(event => event.followUp.description !== undefined);
     }
 
     return orderedEvents;
