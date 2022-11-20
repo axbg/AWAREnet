@@ -80,6 +80,7 @@ const searchAction = async (body, userId) => {
             description: actions[i].description,
             active: actions[i].active,
             timestampCreated: actions[i].timestampCreated,
+            pictures: actions[i].pictures,
             owner: await UserModel.find({_id: actions[i].owner}).select(["-password"])
         });
     }
