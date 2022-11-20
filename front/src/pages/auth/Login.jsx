@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addUser, useGlobalContext } from '../../global-context';
 import { Grid, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import axios from 'axios';
 const Login = () => {
     const navigate = useNavigate();
     const { dispatch } = useGlobalContext();
-
+    const [user, setUser] = useState({});
     useEffect(() => {
         console.log('here');
         dispatch(addUser({ userId: '2345678', role: 'NGO' }));
@@ -20,14 +20,11 @@ const Login = () => {
 
     const goToDashboard = () => {
         //handle login
-        axios.post('/login').then((res) => {
+        axios.post('/user/login/local', user).then((res) => {
             console.log(res);
+            dispatch(addUser({ userId: res.data.id, role: res.data.type }));
+            navigate('/dashboard', { replace: false });
         });
-        // dispatch(addUser({ userId: '2345678', role: 'NGO' }));
-        // dispatch(addUser({ userId: '2345678', role: 'user' }));
-        dispatch(addUser({ userId: '230005678', role: 'company' }));
-
-        navigate('/', { replace: false });
     };
 
     return (
@@ -36,8 +33,25 @@ const Login = () => {
             <Grid item xs={6} pl={0}>
                 <h1 className="page-title">{'Login'}</h1>
                 <div className="login-inputs">
-                    <TextField label="Email" />
-                    <TextField label="Password" type="password" />
+                    <TextField
+                        label="Email"
+                        onChange={(e) => {
+                            console.log(e.target.value);
+                            setUser((prev) => {
+                                return { ...prev, email: e.target.value };
+                            });
+                        }}
+                    />
+                    <TextField
+                        label="Password"
+                        type="password"
+                        onChange={(e) => {
+                            console.log(e.target.value);
+                            setUser((prev) => {
+                                return { ...prev, password: e.target.value };
+                            });
+                        }}
+                    />
                 </div>
                 <div className="login-buttons">
                     <Button
