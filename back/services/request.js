@@ -97,6 +97,7 @@ const searchRequest = async(body, userId) => {
             action: await ActionModel.findOne({_id: requests[i]["action"]}),
             owner: await UserModel.findOne({_id: requests[i]["owner"]}),
             partner: await UserModel.findOne({_id: requests[i]["partner"]}),
+            pictures: requests[i]["pictures"],
             description: requests[i]["description"],
             response: requests[i]["response"],
             active: requests[i]["active"]
