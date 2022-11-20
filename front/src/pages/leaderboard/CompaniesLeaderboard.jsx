@@ -1,4 +1,4 @@
-import { Done } from '@mui/icons-material';
+import { Done, Masks } from '@mui/icons-material';
 import {
     Avatar,
     Card,
@@ -31,13 +31,22 @@ const CompaniesLeaderboard = () => {
                             <div>{company.rating}</div>
                             <Rating value={company.rating} precision={0.1} />
                         </div>
-                        {company.backgroundCheck && (
-                            <Chip
-                                label="Background check"
-                                icon={<Done />}
-                                color="success"
-                            />
-                        )}
+                        <div className="chips-container">
+                            {company.backgroundCheck && (
+                                <Chip
+                                    label="Background check"
+                                    icon={<Done />}
+                                    color="success"
+                                />
+                            )}
+                            {company.backgroundCheck && (
+                                <Chip
+                                    label="Carbon footprint check"
+                                    icon={<Masks />}
+                                    color="warning"
+                                />
+                            )}
+                        </div>
                     </CardContent>
                 </Card>
             ))}

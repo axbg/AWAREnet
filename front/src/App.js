@@ -59,11 +59,6 @@ function App() {
                         <Route path="/" exact element={<Home />} />
                         <Route path="/login" exact element={<Login />} />
 
-                        <Route
-                            path="/dashboard"
-                            exact
-                            element={<Dashboard />}
-                        />
                         <Route element={<DesktopLayout />}>
                             <Route path="/event" exact element={<Event />} />
                         </Route>
@@ -74,11 +69,6 @@ function App() {
                                 element={<Requests />}
                             />
                         </Route>
-                        <Route
-                            path="/event-history"
-                            exact
-                            element={<EventHistory />}
-                        />
 
                         <Route path="/actions" exact element={<Actions />} />
                         <Route element={<DesktopLayout />}>
@@ -89,7 +79,11 @@ function App() {
                             />
                         </Route>
                         <Route element={<MobileLayout />}>
-                            <Route path="/dashboard" exact element={<Home />} />
+                            <Route
+                                path="/dashboard"
+                                exact
+                                element={<Dashboard />}
+                            />
                             <Route
                                 path="/explore"
                                 exact
@@ -99,6 +93,11 @@ function App() {
                                 path="/leaderboard"
                                 exact
                                 element={<CompaniesLeaderboard />}
+                            />
+                            <Route
+                                path="/event-history"
+                                exact
+                                element={<EventHistory />}
                             />
                         </Route>
                     </Routes>

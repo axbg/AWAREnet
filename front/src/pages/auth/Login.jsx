@@ -23,6 +23,10 @@ const Login = () => {
         axios.post('/login').then((res) => {
             console.log(res);
         });
+        // dispatch(addUser({ userId: '2345678', role: 'NGO' }));
+        // dispatch(addUser({ userId: '2345678', role: 'user' }));
+        dispatch(addUser({ userId: '230005678', role: 'company' }));
+
         navigate('/', { replace: false });
     };
 

@@ -6,12 +6,12 @@ export const CardCarousel = ({ items, title }) => {
     return (
         <S.CardCarouselContainer>
             <S.TitleContainer>
-                <S.Title variant="h6" color="text.primary">
+                <S.Title variant="h7" color="text.primary">
                     {title || 'TITLU CEL MAI BUN'}
                 </S.Title>
             </S.TitleContainer>
             <S.SliderContainer>
-                <EventCard renderFirstCTA={() => <>Hello</>}/>
+                <EventCard renderFirstCTA={() => <>Hello</>} />
                 <EventCard />
                 <EventCard />
                 <EventCard />

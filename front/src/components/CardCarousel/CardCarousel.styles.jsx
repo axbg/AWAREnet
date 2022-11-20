@@ -1,27 +1,23 @@
-import styled from "@emotion/styled";
-import {
-    Typography
-} from '@mui/material';
+import styled from '@emotion/styled';
+import { Typography } from '@mui/material';
 
 export const CardCarouselContainer = styled('div')`
     width: 100%;
 `;
 
-export const TitleContainer = styled('div')`
-
-`;
+export const TitleContainer = styled('div')``;
 
 export const Title = styled(Typography)`
+    margin-bottom: 10px;
 `;
 
 export const SliderContainer = styled('div')`
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  gap: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1rem;
 
-  &::-webkit-scrollbar {
-  display: none;
-}
-`
-
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`;
