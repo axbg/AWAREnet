@@ -13,9 +13,6 @@ const isActiveEvent = (start) => {
     const startTime = parseInt(start);
     const nowTime = moment().utc().valueOf();
 
-    console.log(startTime);
-    console.log(nowTime);
-
     return (startTime - nowTime) > 0;
 }
 
@@ -177,6 +174,10 @@ const join = async (id, userId) => {
         throwError("Can't join an even that has already passed", 400);
     }
 
+    if(event.followUp.description) {
+        throwError("Can't join an even that already has a follow up", 400);
+    }
+
     const index = event.participants.indexOf(userId);
 
     if (index !== -1) {
@@ -208,7 +209,12 @@ const rate = async (body, userId) => {
         throwError("Can't rate an event that does not have a follow-up", 401);
     }
 
+    if(event.ratings.find(rating => rating.userId === userId)) {
+        throwError("You've already rated this event", 401);
+    }
+
     event.ratings.push({userId: userId, rating: body.rating, comment: body.comment});
+
     await event.save();
 }
 

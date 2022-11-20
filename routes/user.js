@@ -12,6 +12,8 @@ router.get('/all', authenticated, controller.getUsers);
 
 router.post('/background-check', authenticated, controller.requestBackgroundCheck);
 
+router.get('/leaderboard', authenticated, controller.leaderboard);
+
 router.get('/logout', authenticated, controller.logout);
 
 module.exports = router;

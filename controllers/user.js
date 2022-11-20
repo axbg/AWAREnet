@@ -46,9 +46,17 @@ const requestBackgroundCheck = async (ctx) => {
     ctx.status = 200;
 }
 
+const leaderboard = async (ctx) => {
+    const companies = await service.leaderboard();
+
+    ctx.status = 200
+    ctx.body = {companies: companies}
+}
+
 module.exports = {
     login,
     logout,
     getUsers,
+    leaderboard,
     requestBackgroundCheck
 };
