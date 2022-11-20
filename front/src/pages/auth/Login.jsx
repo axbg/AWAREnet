@@ -9,10 +9,6 @@ const Login = () => {
     const navigate = useNavigate();
     const { dispatch } = useGlobalContext();
     const [user, setUser] = useState({});
-    useEffect(() => {
-        console.log('here');
-        dispatch(addUser({ userId: '2345678', role: 'NGO' }));
-    }, []);
 
     const goToRegister = () => {
         navigate('/register', { replace: false });
