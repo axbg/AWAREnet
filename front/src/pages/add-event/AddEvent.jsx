@@ -81,7 +81,7 @@ const AddEvent = () => {
             alignItems="center"
             justifyContent="center"
             style={{ minHeight: '100vh' }}>
-            <Box p={2}>
+            <Box p={2} className="add-event-form">
                 <Typography variant="h3" gutterBottom>
                     Add event
                 </Typography>
@@ -177,7 +177,7 @@ const AddEvent = () => {
                             <MenuItem value={'other'}>Other</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="contained" component="label">
+                    <Button variant="outlined" component="label">
                         Upload pictures
                         <input
                             hidden
