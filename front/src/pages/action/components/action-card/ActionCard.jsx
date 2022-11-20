@@ -24,9 +24,7 @@ export const ActionCard = ({ action, ...props }) => {
     console.lo;
     return (
         <div className={styles.customCard}>
-            <Card
-                onClick={() => openDetailsModal(true)}
-                classes={{ root: styles.card }}>
+            <Card classes={{ root: styles.card }}>
                 <CardHeader
                     title={
                         <div className={styles.customHeader}>
@@ -78,6 +76,7 @@ export const ActionCard = ({ action, ...props }) => {
             {openRequestModal && (
                 <AddRequestModal
                     isOpen={openRequestModal}
+                    action={action}
                     handleClose={() => setRequestModalOpen(false)}
                 />
             )}

@@ -10,7 +10,8 @@ import { AddRequestModal } from './components/add-request-modal/AddRequestModal'
 import axios from 'axios';
 
 export const Requests = () => {
-    const [requests, setRequests] = useState(true);
+    const [incomingList, setIncomingList] = useState(true);
+    const [outgoingList, setOutgoingList] = useState([]);
     // const {
     //     state: { user }
     // } = useGlobalContext();
@@ -23,30 +24,28 @@ export const Requests = () => {
     useEffect(() => {
         axios.get(`/request/search?partner=${user.userId}`).then((res) => {
             console.log(res);
-            setRequests(res.data);
+            setIncomingList(res.data.requests);
+        });
+        axios.get(`/request/search?owner=${user.userId}`).then((res) => {
+            console.log(res);
+            setOutgoingList(res.data.requests);
         });
     }, []);
-    const PendingRequests = () => {
+    const IncomingRequests = () => {
         return (
             <div className={styles.pendingRequests}>
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
+                {incomingList.map((item) => (
+                    <RequestCard req={item} key={item._id} />
+                ))}
             </div>
         );
     };
-    const OnGoingRequests = () => {
+    const OutgoingRequests = () => {
         return (
             <div className={styles.pendingRequests}>
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
+                {outgoingList.map((item) => (
+                    <RequestCard req={item} key={item._id} type="outgoing" />
+                ))}
             </div>
         );
     };
@@ -59,7 +58,7 @@ export const Requests = () => {
                             variant="text"
                             onClick={() => setShowPending(true)}
                             sx={{ color: showPending ? '#0A3200' : '#4281A4' }}>
-                            Pending
+                            Incoming
                         </Button>
                         <Button
                             variant="text"
@@ -67,13 +66,13 @@ export const Requests = () => {
                             sx={{
                                 color: !showPending ? '#0A3200' : '#4281A4'
                             }}>
-                            On going
+                            Outgoing
                         </Button>
                     </div>
                 </div>
                 <Divider classes="divider" />
 
-                {showPending ? <PendingRequests /> : <OnGoingRequests />}
+                {showPending ? <IncomingRequests /> : <OutgoingRequests />}
             </div>
         </PageContainer>
     );
