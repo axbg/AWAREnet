@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useGlobalContext } from 'global-context';
-
-import { IconButton, Button, Divider } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import styles from './Requests.module.scss';
-import AddIcon from '@mui/icons-material/Add';
 import { RequestCard } from './components/request-card/RequestCard';
 import { PageContainer } from 'components/page-container/PageContainer';
-import { AddRequestModal } from './components/add-request-modal/AddRequestModal';
 import axios from 'axios';
 
 export const Requests = () => {
@@ -17,7 +13,6 @@ export const Requests = () => {
     // } = useGlobalContext();
 
     // console.log(user);
-    const [openModal, setOpenAddModal] = useState(false);
     const [showPending, setShowPending] = useState(true);
     const user = JSON.parse(localStorage.getItem('user'));
 

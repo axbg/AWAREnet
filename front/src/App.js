@@ -83,6 +83,11 @@ function App() {
                                 exact
                                 element={<Actions />}
                             />
+                            <Route
+                                path="/history"
+                                exact
+                                element={<EventHistory />}
+                            />
                         </Route>
 
                         <Route element={<DesktopLayout />}>
@@ -96,7 +101,7 @@ function App() {
                             <Route
                                 path="/dashboard"
                                 exact
-                                element={<Dashboard />}
+                                element={<Dashboard type="user" />}
                             />
                             <Route
                                 path="/explore"
