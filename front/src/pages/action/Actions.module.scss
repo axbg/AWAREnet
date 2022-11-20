@@ -1,0 +1,18 @@
+.switchButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 5px;
+}
+
+.headerButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 5%;
+}
+
+.pendingActions {
+    height: 95%;
+    overflow-y: auto;
+}

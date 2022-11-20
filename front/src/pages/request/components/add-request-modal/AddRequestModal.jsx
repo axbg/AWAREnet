@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useGlobalContext } from 'global-context';
 
 import {
@@ -16,9 +16,10 @@ import {
     Select
 } from '@mui/material';
 import styles from './AddRequestModal.module.scss';
+import _ from 'lodash';
 
 export const AddRequestModal = (props) => {
-    const { isOpen, handleClose, eventId } = props;
+    const { isOpen, handleClose, event } = props;
     const {
         state: { user }
     } = useGlobalContext();
@@ -49,7 +50,7 @@ export const AddRequestModal = (props) => {
                         container
                         direction="column"
                         className="container-add-event">
-                        {eventId ? (
+                        {_.get(event, 'id') ? (
                             <FormControl>
                                 <TextField
                                     id="description"

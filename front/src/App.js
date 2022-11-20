@@ -9,17 +9,21 @@ import { Event } from 'pages/event/Event';
 // import { BottomBar } from 'components/bottom-bar/BottomBar';
 import { GlobalContextProvide } from './global-context';
 import './App.scss';
-import { ExploreEventsMap } from 'pages/explore-events-map/ExploreEventsMap';
 import { Requests } from 'pages/request/Requests';
 import { Login } from 'pages/auth/Login';
 import { Dashboard } from 'pages/Dashboard/Dashboard';
 import { EventHistory } from 'pages/EventHistory/EventHistory';
+import { Actions } from 'pages/action/Actions';
+import { AddEvent } from 'pages/add-event/AddEvent';
+import { MobileLayout } from 'layouts/MobileLayout';
+import { ExploreEvents } from 'pages/explore-events/ExploreEvents';
+import { DesktopLayout } from 'layouts/DesktopLayout';
 
 function App() {
     const darkTheme = createTheme({
-        // typography: {
-        //     fontFamily: 'Roboto'
-        // },
+        typography: {
+            fontFamily: '"Helvetica Neue"'
+        },
         palette: {
             primary: {
                 main: '#0A3200'
@@ -49,6 +53,7 @@ function App() {
             <ThemeProvider theme={darkTheme}>
                 <div className="app">
                     {/* DO NOT USE component like bellow in a Switch statement */}
+                    {/* TODO: according to user role, this is just temporary */}
                     <Routes>
                         <Route path="/" exact element={<Home />} />
                         <Route path="/login" exact element={<Login />} />
@@ -61,8 +66,24 @@ function App() {
                         <Route
                             path="/explore"
                             exact
-                            element={<ExploreEventsMap />}
+                            element={<ExploreEvents />}
                         />
+                        <Route path="/actions" exact element={<Actions />} />
+                        <Route element={<DesktopLayout />}>
+                            <Route
+                                path="/add-event"
+                                exact
+                                element={<AddEvent />}
+                            />
+                        </Route>
+                        <Route element={<MobileLayout />}>
+                            <Route path="/dashboard" exact element={<Home />} />
+                            <Route
+                                path="/explore"
+                                exact
+                                element={<ExploreEvents />}
+                            />
+                        </Route>
                     </Routes>
                 </div>
             </ThemeProvider>

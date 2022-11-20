@@ -4,15 +4,22 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 import styles from './Event.module.scss';
+import { AddRequestModal } from 'pages/request/components/add-request-modal/AddRequestModal';
 
-export const Event = () => {
+export const Event = (props) => {
     const [isUser] = useState(false);
+    const [isOpen, setOpenModal] = useState(false);
+    const [event] = useState({});
     const JoinAsPartner = () => {
         console.log({ isUser });
         return (
             !isUser && (
                 <div className={styles.partner}>
-                    <Button variant="outlined">Join as partner</Button>
+                    <Button
+                        variant="outlined"
+                        onClick={() => setOpenModal(true)}>
+                        Join as partner
+                    </Button>
                     <Divider classes={{ root: styles.divider }} />
                 </div>
             )
@@ -76,6 +83,13 @@ export const Event = () => {
                     </span>
                 </div>
             </div>
+            {isOpen && (
+                <AddRequestModal
+                    isOpen={isOpen}
+                    handleClose={() => setOpenModal(false)}
+                    event={event}
+                />
+            )}
         </div>
     );
 };

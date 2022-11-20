@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-import DoneIcon from '@mui/icons-material/Done';
-import { Card, CardContent, CardHeader, Avatar, Divider } from '@mui/material';
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    Button,
+    Avatar,
+    Divider
+} from '@mui/material';
 import { red } from '@mui/material/colors';
-import _ from 'lodash';
-import styles from './RequestCard.module.scss';
-import { RequestDetails } from '../request-details/RequestDetails';
+import styles from './ActionCard.module.scss';
+import { ImageListModal } from '../image-list/ImageListModal';
 
-export const RequestCard = ({ ...props }) => {
+export const ActionCard = ({ ...props }) => {
     const [isOpen, openDetailsModal] = useState(false);
-    const [request] = useState({ response: false });
+    const [action] = useState({ pictures: [], description: '', ownerId: '' });
     return (
         <div className={styles.customCard}>
             <Card
@@ -17,11 +22,15 @@ export const RequestCard = ({ ...props }) => {
                 <CardHeader
                     title={
                         <div className={styles.customHeader}>
-                            <span>Workshop: Reciclarea selectiva </span>{' '}
-                            {_.get(request, 'response') && <DoneIcon />}
+                            <span>Action: I need an event</span>{' '}
+                            <Button
+                                variant="outlined"
+                                onClick={() => openDetailsModal(true)}>
+                                View images
+                            </Button>
                         </div>
                     }
-                    subheader="by ONG"
+                    subheader="by Devhacks"
                     classes={{ root: styles.modalHeader }}
                     titleTypographyProps={{ variant: 'h6' }}
                 />
@@ -31,21 +40,22 @@ export const RequestCard = ({ ...props }) => {
                     <Divider classes={{ root: styles.divider }} />
                     <div className={styles.cardContent}>
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            R
+                            A
                         </Avatar>
 
                         <span>
-                            <strong>DevHacks</strong> requested to be a partner
-                            on this event.
+                            <strong>NGO</strong> requested for a event having
+                            the budget of 3000euros. The scope is to have a
+                            better understanding of climate change and to clean
+                            up an area next to Bucharest.
                         </span>
                     </div>
                 </CardContent>
             </Card>
             {isOpen && (
-                <RequestDetails
+                <ImageListModal
                     isOpen={isOpen}
                     handleClose={() => openDetailsModal(false)}
-                    request={request}
                 />
             )}
         </div>
