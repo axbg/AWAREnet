@@ -22,17 +22,26 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export const AddRequestModal = (props) => {
-    const { isOpen, handleClose, event } = props;
+    const { isOpen, handleClose, event, action } = props;
     const [events, setEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(0);
-    const user = JSON.parse(localStorage.getItem('user'));
+    const [description, setDescription] = useState('');
 
     const saveRequest = () => {
         //ownerId - from event obj
         //partnerId - e user-ul in sine
         //actionId from NGO obj
-        console.log(selectedEvent, user);
-        handleClose(true);
+
+        const obj = {
+            event: selectedEvent,
+            description: description,
+            action: action._id
+        };
+        console.log(obj, action);
+
+        axios.post('/request/create', obj).then(() => {
+            console.log('SUCCESs');
+        });
     };
     useEffect(() => {
         axios.get('/event/search?active=true').then((res) => {
@@ -60,40 +69,35 @@ export const AddRequestModal = (props) => {
                         container
                         direction="column"
                         className="container-add-event">
-                        {_.get(event, 'id') ? (
-                            <FormControl>
-                                <TextField
-                                    id="description"
-                                    label="description"
-                                    variant="outlined"
-                                />
-                            </FormControl>
-                        ) : (
-                            <FormControl fullWidth>
-                                <InputLabel id="action">Event</InputLabel>
-                                <Select
-                                    id="action"
-                                    label="Event"
-                                    onChange={(event) =>
-                                        setSelectedEvent(event.target.value)
-                                    }
-                                    value={selectedEvent}>
-                                    {events.length !== 0 &&
-                                        events.map((item) => (
-                                            <MenuItem
-                                                value={item.id}
-                                                key={item.id}>
-                                                {item.title}
-                                            </MenuItem>
-                                        ))}
-                                </Select>
-                            </FormControl>
-                        )}
+                        <FormControl fullWidth>
+                            <InputLabel id="action">Event</InputLabel>
+                            <Select
+                                id="action"
+                                label="Event"
+                                onChange={(event) => {
+                                    setSelectedEvent(event.target.value);
+                                }}
+                                value={selectedEvent}>
+                                {events.length !== 0 &&
+                                    events.map((item) => (
+                                        <MenuItem
+                                            value={item._id}
+                                            key={item._id}>
+                                            {item.title}
+                                        </MenuItem>
+                                    ))}
+                            </Select>
+                        </FormControl>
+
                         <FormControl>
                             <TextField
                                 id="description"
                                 label="description"
                                 variant="outlined"
+                                value={description}
+                                onChange={(event) => {
+                                    setDescription(event.target.value);
+                                }}
                             />
                         </FormControl>
                     </Grid>
