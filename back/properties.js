@@ -21,10 +21,10 @@ module.exports = {
     autoCommit: true,
     overwrite: true,
     httpOnly: !!+process.env.PROD,
-    signed: true,
+    signed: false,
     rolling: false,
     renew: true,
-    secure: !!+process.env.PROD,
-    sameSite: !!+process.env.PROD,
+    secure: false,
+    sameSite: "None",
   },
 };
