@@ -10,7 +10,7 @@ import { AddRequestModal } from './components/add-request-modal/AddRequestModal'
 import axios from 'axios';
 
 export const Requests = () => {
-    const [incomingList, setIncomingList] = useState(true);
+    const [incomingList, setIncomingList] = useState([]);
     const [outgoingList, setOutgoingList] = useState([]);
     // const {
     //     state: { user }
