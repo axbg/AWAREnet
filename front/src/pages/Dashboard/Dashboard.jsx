@@ -45,7 +45,7 @@ export const Dashboard = (props) => {
     return (
         <div className="dashboard-container">
             <PageContainer>
-                {!isLoading ? (
+                {isLoading ? (
                     <CircularProgress />
                 ) : (
                     <S.DashboardContainer>

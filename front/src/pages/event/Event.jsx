@@ -152,6 +152,7 @@ export const Event = (props) => {
                         isOpen={isOpen}
                         handleClose={() => setOpenModal(false)}
                         event={event}
+                        // action={action}
                     />
                 )}
                 {isReviewModalOpen && (

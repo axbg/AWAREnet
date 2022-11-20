@@ -22,23 +22,17 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export const AddRequestModal = (props) => {
-    const { isOpen, handleClose, event, action } = props;
+    const { isOpen, handleClose, action } = props;
     const [events, setEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(0);
     const [description, setDescription] = useState('');
 
     const saveRequest = () => {
-        //ownerId - from event obj
-        //partnerId - e user-ul in sine
-        //actionId from NGO obj
-
         const obj = {
             event: selectedEvent,
             description: description,
             action: action._id
         };
-        console.log(obj, action);
-
         axios.post('/request/create', obj).then(() => {
             console.log('SUCCESs');
         });
@@ -47,10 +41,6 @@ export const AddRequestModal = (props) => {
         axios.get('/event/search?active=true').then((res) => {
             console.log(res.data);
             setEvents(res.data.events);
-            // if(res.data.events.length > 0){
-
-            //     setSelectedEvent(res.data.events[0]._id)
-            // }
         });
     }, []);
 

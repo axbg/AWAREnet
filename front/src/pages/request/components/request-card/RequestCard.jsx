@@ -46,7 +46,9 @@ export const RequestCard = ({ ...props }) => {
                             <strong>
                                 {_.get(props, 'req.owner.name', 'NGO')}
                             </strong>{' '}
-                            wants to share their event.
+                            {props.type === 'incoming'
+                                ? 'wants to join your event'
+                                : 'wants to share their event'}
                         </span>
                     </div>
                 </CardContent>
@@ -56,7 +58,7 @@ export const RequestCard = ({ ...props }) => {
                     isOpen={isOpen}
                     type={props.type}
                     handleClose={() => openDetailsModal(false)}
-                    request={request}
+                    request={_.get(props, 'req')}
                 />
             )}
         </div>
