@@ -12,6 +12,8 @@ import './App.scss';
 import { ExploreEventsMap } from 'pages/explore-events-map/ExploreEventsMap';
 import { Requests } from 'pages/request/Requests';
 import { Login } from 'pages/auth/Login';
+import { Dashboard } from 'pages/Dashboard/Dashboard';
+import { EventHistory } from 'pages/EventHistory/EventHistory';
 
 function App() {
     const darkTheme = createTheme({
@@ -51,8 +53,10 @@ function App() {
                         <Route path="/" exact element={<Home />} />
                         <Route path="/login" exact element={<Login />} />
 
+                        <Route path="/dashboard" exact element={<Dashboard />} />
                         <Route path="/event" exact element={<Event />} />
                         <Route path="/requests" exact element={<Requests />} />
+                        <Route path="/event-history" exact element={<EventHistory />} />
 
                         <Route
                             path="/explore"
