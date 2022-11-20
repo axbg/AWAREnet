@@ -11,7 +11,7 @@ export const CardCarousel = ({ items, title }) => {
                 </S.Title>
             </S.TitleContainer>
             <S.SliderContainer>
-                <EventCard />
+                <EventCard renderFirstCTA={() => <>Hello</>}/>
                 <EventCard />
                 <EventCard />
                 <EventCard />
