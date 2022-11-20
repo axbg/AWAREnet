@@ -14,9 +14,12 @@ import { ImageListModal } from '../image-list/ImageListModal';
 import AddIcon from '@mui/icons-material/Add';
 
 import _ from 'lodash';
+import { AddRequestModal } from 'pages/request/components/add-request-modal/AddRequestModal';
 
 export const ActionCard = ({ action, ...props }) => {
     const [isOpen, openDetailsModal] = useState(false);
+    const [openRequestModal, setRequestModalOpen] = useState(false);
+
     // const [action] = useState({ pictures: [], description: '', ownerId: '' });
     console.lo;
     return (
@@ -37,7 +40,8 @@ export const ActionCard = ({ action, ...props }) => {
 
                                 <Button
                                     variant="outlined"
-                                    startIcon={<AddIcon />}>
+                                    startIcon={<AddIcon />}
+                                    onClick={() => setRequestModalOpen(true)}>
                                     Add request
                                 </Button>
                             </div>
@@ -69,6 +73,12 @@ export const ActionCard = ({ action, ...props }) => {
                     data={_.get(action, 'pictures', [])}
                     action={action}
                     handleClose={() => openDetailsModal(false)}
+                />
+            )}
+            {openRequestModal && (
+                <AddRequestModal
+                    isOpen={openRequestModal}
+                    handleClose={() => setRequestModalOpen(false)}
                 />
             )}
         </div>

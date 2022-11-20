@@ -15,7 +15,6 @@ export const Actions = () => {
 
     const [openModal, setOpenAddModal] = useState(false);
     const [showPending, setShowPending] = useState(true);
-    const [openRequestModal, setRequestModalOpen] = useState(false);
     useEffect(() => {
         axios.get(`/action/search`).then((res) => {
             console.log(res);
@@ -25,34 +24,26 @@ export const Actions = () => {
     return (
         <PageContainer>
             <div className={styles.eventsContainer}>
-                <div className={styles.headerButtons}>
-                    {user.type !== 'ngo' && (
+                {user.type !== 'ngo' && (
+                    <div className={styles.headerButtons}>
                         <IconButton
                             color="primary"
                             aria-label="grid view"
                             onClick={() => setOpenAddModal(true)}>
                             <AddIcon />
                         </IconButton>
-                    )}
-                </div>
+                    </div>
+                )}
                 <div className={styles.pendingActions}>
                     {actions.map((act) => (
                         <ActionCard type="onGoing" key={act._id} action={act} />
                     ))}
-
-                    {/* mai multe */}
                 </div>
             </div>
             {openModal && (
                 <AddActionModal
                     isOpen={openModal}
                     handleClose={() => setOpenAddModal(false)}
-                />
-            )}
-            {openRequestModal && (
-                <AddRequestModal
-                    isOpen={openRequestModal}
-                    handleClose={() => setRequestModalOpen(false)}
                 />
             )}
         </PageContainer>
