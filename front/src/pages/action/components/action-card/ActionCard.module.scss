@@ -1,0 +1,38 @@
+.customCard {
+    margin-top: 20px;
+    min-width: 30%;
+    margin-bottom: 20px;
+
+    font-size: 20px;
+
+    .customContent {
+        padding: 0 16px 16px 16px;
+    }
+
+    .cardContent {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .divider {
+        margin-bottom: 10px;
+    }
+
+    .modalHeader {
+        padding-bottom: 0px !important;
+    }
+
+    .card {
+        border: 1px solid;
+        border-radius: 10px;
+    }
+
+    .customHeader {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

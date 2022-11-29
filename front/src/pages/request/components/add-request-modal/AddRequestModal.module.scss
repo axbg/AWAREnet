@@ -1,0 +1,10 @@
+.requestContainer > div {
+    display: flex !important;
+    gap: 10px;
+    min-width: 200px;
+}
+
+.dialog {
+    max-width: 500px;
+    width: 100%;
+}
