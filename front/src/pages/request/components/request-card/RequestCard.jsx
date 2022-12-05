@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import DoneIcon from '@mui/icons-material/Done';
+
 import { Card, CardContent, CardHeader, Avatar, Divider } from '@mui/material';
-import { red } from '@mui/material/colors';
-import _ from 'lodash';
-import styles from './RequestCard.module.scss';
+import DoneIcon from '@mui/icons-material/Done';
 import { RequestDetails } from '../request-details/RequestDetails';
+import _ from 'lodash';
+
+import { red } from '@mui/material/colors';
+import styles from './RequestCard.module.scss';
 
 export const RequestCard = ({ ...props }) => {
     const [isOpen, openDetailsModal] = useState(false);
-    const [request] = useState({ response: false });
     console.log(props.req);
     return (
         <div className={styles.customCard}>

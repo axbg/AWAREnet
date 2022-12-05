@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useGlobalContext } from 'global-context';
-
 import {
     Dialog,
     DialogActions,
@@ -21,15 +19,9 @@ import styles from './RequestDetails.module.scss';
 import axios from 'axios';
 import _ from 'lodash';
 
-// import _ from 'lodash';
-
 export const RequestDetails = (props) => {
     const { isOpen, handleClose, request, type } = props;
     const [checkboxVal, setCheckboxVal] = useState(false);
-    const {
-        state: { user }
-    } = useGlobalContext();
-    console.log('TED', request);
 
     const approveRequest = () => {
         console.log(request, checkboxVal);

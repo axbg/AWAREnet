@@ -47,7 +47,7 @@ const AddEvent = () => {
         };
         axios
             .post('/event/create', { ...newEvent }, { withCredentials: true })
-            .then((res) => navigate('/dashboard'));
+            .then(() => navigate('/dashboard'));
     };
 
     const [viewport, setViewport] = useState({

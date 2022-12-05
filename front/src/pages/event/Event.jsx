@@ -13,7 +13,7 @@ import { ReviewEventModal } from './review-event-modal/ReviewEventModal';
 import { isEmpty } from 'lodash';
 import axios from 'axios';
 
-export const Event = (props) => {
+export const Event = () => {
     const [isUser] = useState(false);
     const [isOpen, setOpenModal] = useState(false);
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
@@ -22,7 +22,6 @@ export const Event = (props) => {
     const currentEvent = state.event;
     const {
         description,
-        shortDescription,
         partners,
         owner,
         timestampStart,

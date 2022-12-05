@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Banner, StaticBanner } from 'material-ui-banner';
+import { Banner } from 'material-ui-banner';
 import { useEffect } from 'react';
 import { closeBanner, useGlobalContext } from 'global-context';
 
