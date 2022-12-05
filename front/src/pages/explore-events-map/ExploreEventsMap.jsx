@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import './ExploreEventsMap.scss';
 import { Button, Grid, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const calculateTimeDifference = (eventTs) => {
     const now = moment();
@@ -23,31 +24,15 @@ const calculatePinColor = (timeDifference) => {
     }
 };
 
-const ExploreEventsMap = () => {
+const ExploreEventsMap = ({ events }) => {
     const [viewport, setViewport] = useState({
         longitude: 26.096306,
         latitude: 44.439663,
         zoom: 10
     });
-    const [events, setEvents] = useState([
-        {
-            location: [
-                { lat: '44.44504451085233', long: '26.101622369303502' }
-            ],
-            timestampStart: '2022-11-09',
-            title: 'Cool event',
-            shortDescription: 'A short description',
-            partners: ['BMW', 'OMV']
-        },
-        {
-            location: [{ lat: '44.41095553009465', long: '26.14770126983265' }],
-            timestampStart: '2022-11-17',
-            title: 'Cooler event',
-            shortDescription: 'A short description',
-            partners: ['Glovo']
-        }
-    ]);
+
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const navigate = useNavigate();
 
     return (
         <Map
@@ -82,8 +67,8 @@ const ExploreEventsMap = () => {
                         <Grid item>
                             <img
                                 alt="complex"
-                                src="https://cdn3.iconfinder.com/data/icons/design-n-code/100/272127c4-8d19-4bd3-bd22-2b75ce94ccb4-512.png"
-                                height={50}
+                                src={selectedEvent.pictures[0]}
+                                height={100}
                             />
                         </Grid>
                         <Grid item xs={12} sm container>
@@ -101,14 +86,21 @@ const ExploreEventsMap = () => {
                                     <Typography
                                         variant="body2"
                                         color="text.secondary">
-                                        {selectedEvent.partners.join(', ')}
+                                        {selectedEvent.partners
+                                            .map((partner) => partner.name)
+                                            .join(', ')}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
                                     <Button
                                         type="primary"
                                         variant="contained"
-                                        size="small">
+                                        size="small"
+                                        onClick={() =>
+                                            navigate('/event', {
+                                                state: { event: selectedEvent }
+                                            })
+                                        }>
                                         Go to event page
                                     </Button>
                                 </Grid>

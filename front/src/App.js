@@ -20,6 +20,7 @@ import { ExploreEvents } from 'pages/explore-events/ExploreEvents';
 import { DesktopLayout } from 'layouts/DesktopLayout';
 import { BackgroundBanner } from 'components/BackgroundBanner';
 import { CompaniesLeaderboard } from 'pages/leaderboard/CompaniesLeaderboard';
+// import { DashboardNGO } from 'pages/Dashboard/DasboardNGO';
 
 function App() {
     const darkTheme = createTheme({
@@ -48,6 +49,8 @@ function App() {
         }
     });
 
+    const user = JSON.parse(localStorage.getItem('user'));
+
     return (
         <GlobalContextProvide>
             {/* <ResponsiveAppBar /> */}
@@ -58,23 +61,45 @@ function App() {
                     {/* DO NOT USE component like bellow in a Switch statement */}
                     {/* TODO: according to user role, this is just temporary */}
                     <Routes>
-                        <Route path="/" exact element={<Home />} />
                         <Route path="/login" exact element={<Login />} />
 
-                        <Route
-                            path="/dashboard"
-                            exact
-                            element={<Dashboard />}
-                        />
-                        <Route path="/event" exact element={<Event />} />
-                        <Route path="/requests" exact element={<Requests />} />
-                        <Route
-                            path="/event-history"
-                            exact
-                            element={<EventHistory />}
-                        />
+                        {user.type !== 'user' && (
+                            <Route element={<DesktopLayout />}>
+                                <Route
+                                    path="/event"
+                                    exact
+                                    element={<Event />}
+                                />
+                            </Route>
+                        )}
+                        <Route element={<DesktopLayout />}>
+                            <Route
+                                path="/dashboard-ngo"
+                                exact
+                                element={<Dashboard type="ngo" />}
+                            />
+                            <Route
+                                path="/dashboard-company"
+                                exact
+                                element={<Dashboard type="company" />}
+                            />
+                            <Route
+                                path="/requests"
+                                exact
+                                element={<Requests />}
+                            />
+                            <Route
+                                path="/actions"
+                                exact
+                                element={<Actions />}
+                            />
+                            <Route
+                                path="/history"
+                                exact
+                                element={<EventHistory />}
+                            />
+                        </Route>
 
-                        <Route path="/actions" exact element={<Actions />} />
                         <Route element={<DesktopLayout />}>
                             <Route
                                 path="/add-event"
@@ -83,7 +108,11 @@ function App() {
                             />
                         </Route>
                         <Route element={<MobileLayout />}>
-                            <Route path="/dashboard" exact element={<Home />} />
+                            <Route
+                                path="/dashboard"
+                                exact
+                                element={<Dashboard type="user" />}
+                            />
                             <Route
                                 path="/explore"
                                 exact
@@ -94,6 +123,18 @@ function App() {
                                 exact
                                 element={<CompaniesLeaderboard />}
                             />
+                            <Route
+                                path="/event-history"
+                                exact
+                                element={<EventHistory />}
+                            />
+                            {user.type === 'user' && (
+                                <Route
+                                    path="/event"
+                                    exact
+                                    element={<Event />}
+                                />
+                            )}
                         </Route>
                     </Routes>
                 </div>

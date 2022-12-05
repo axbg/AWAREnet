@@ -9,10 +9,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 axios.defaults.baseURL =
     process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3005/api'
+        ? 'http://172.20.10.9:8080/api'
         : 'api';
-axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-
+// axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+axios.defaults.withCredentials = true;
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>

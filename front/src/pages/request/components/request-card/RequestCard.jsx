@@ -9,6 +9,7 @@ import { RequestDetails } from '../request-details/RequestDetails';
 export const RequestCard = ({ ...props }) => {
     const [isOpen, openDetailsModal] = useState(false);
     const [request] = useState({ response: false });
+    console.log(props.req);
     return (
         <div className={styles.customCard}>
             <Card
@@ -17,11 +18,18 @@ export const RequestCard = ({ ...props }) => {
                 <CardHeader
                     title={
                         <div className={styles.customHeader}>
-                            <span>Workshop: Reciclarea selectiva </span>{' '}
-                            {_.get(request, 'response') && <DoneIcon />}
+                            <span>
+                                {_.get(props, 'req.event.title', 'N/A')}
+                            </span>{' '}
+                            {_.get(props, 'req.response') && <DoneIcon />}
                         </div>
                     }
-                    subheader="by ONG"
+                    subheader={
+                        _.get(props, 'req.partner.name')
+                            ? 'Together with ' +
+                              _.get(props, 'req.partner.name')
+                            : ''
+                    }
                     classes={{ root: styles.modalHeader }}
                     titleTypographyProps={{ variant: 'h6' }}
                 />
@@ -35,8 +43,12 @@ export const RequestCard = ({ ...props }) => {
                         </Avatar>
 
                         <span>
-                            <strong>DevHacks</strong> requested to be a partner
-                            on this event.
+                            <strong>
+                                {_.get(props, 'req.owner.name', 'NGO')}
+                            </strong>{' '}
+                            {props.type === 'incoming'
+                                ? 'wants to join your event'
+                                : 'wants to share their event'}
                         </span>
                     </div>
                 </CardContent>
@@ -44,8 +56,9 @@ export const RequestCard = ({ ...props }) => {
             {isOpen && (
                 <RequestDetails
                     isOpen={isOpen}
+                    type={props.type}
                     handleClose={() => openDetailsModal(false)}
-                    request={request}
+                    request={_.get(props, 'req')}
                 />
             )}
         </div>

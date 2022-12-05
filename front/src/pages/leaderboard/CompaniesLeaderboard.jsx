@@ -1,4 +1,4 @@
-import { Done } from '@mui/icons-material';
+import { Done, Masks } from '@mui/icons-material';
 import {
     Avatar,
     Card,
@@ -7,16 +7,20 @@ import {
     Chip,
     Rating
 } from '@mui/material';
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
 
 import './CompaniesLeaderboard.scss';
 
 const CompaniesLeaderboard = () => {
-    const [companies, setCompanies] = useState([
-        { name: 'Systematic', backgroundCheck: true, rating: 4 },
-        { name: 'BMW', backgroundCheck: false, rating: 3 },
-        { name: 'Metro Systems', backgroundCheck: true, rating: 4.5 }
-    ]);
+    const [companies, setCompanies] = useState([]);
+    useEffect(() => {
+        axios
+            .get('/user/leaderboard', { withCredentials: true })
+            .then((res) => setCompanies(res.data.companies));
+    }, []);
     return (
         <div className="companies-leaderboard">
             {companies.map((company, index) => (
@@ -28,16 +32,39 @@ const CompaniesLeaderboard = () => {
                     />
                     <CardContent className="company-card-content">
                         <div className="company-rating">
-                            <div>{company.rating}</div>
-                            <Rating value={company.rating} precision={0.1} />
-                        </div>
-                        {company.backgroundCheck && (
-                            <Chip
-                                label="Background check"
-                                icon={<Done />}
-                                color="success"
+                            <div>{company.score}</div>
+                            <Rating
+                                value={company.score}
+                                precision={0.1}
+                                color="secondary"
+                                readOnly
                             />
-                        )}
+                        </div>
+                        <div className="chips-container">
+                            {company.backgroundCheck && (
+                                <Chip
+                                    label="Background check"
+                                    icon={<Done />}
+                                    color={'success'}
+                                />
+                            )}
+                            {!company.backgroundCheck &&
+                                !company.requestBackgroundCheck && (
+                                    <Chip
+                                        label="Background check"
+                                        icon={<NotInterestedIcon />}
+                                        color={'default'}
+                                    />
+                                )}
+                            {!company.backgroundCheck &&
+                                company.requestBackgroundCheck && (
+                                    <Chip
+                                        label="Background check requested"
+                                        icon={<PendingActionsIcon />}
+                                        color="warning"
+                                    />
+                                )}
+                        </div>
                     </CardContent>
                 </Card>
             ))}

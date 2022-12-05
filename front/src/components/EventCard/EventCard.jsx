@@ -1,20 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './EventCard.styles.tsx';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import axios from 'axios';
+import { Button } from '@mui/material';
 
 export const EventCard = ({
-    id,
-    title,
-    description,
-    image,
-    host,
-    partnerCount,
-    timestamp,
-    location,
+    eventData,
     renderFirstCTA = null,
     renderSecondCTA = null
 }) => {
+    const navigate = useNavigate();
+    const {
+        description,
+        pictures,
+        title,
+        owner,
+        partners,
+        timestampStart,
+        location
+    } = eventData;
+    const host = owner[0]?.name;
+    const image = pictures[0];
+    const partnerCount = partners?.length;
+    const timestamp = timestampStart;
+
+    const navigateToEvent = () => {
+        navigate('/event', {
+            state: { event: eventData }
+        });
+    };
     return (
-        <S.Card variant="outlined">
+        <S.Card variant="outlined" onClick={() => navigateToEvent()}>
             <S.CardMedia
                 component="img"
                 image={
@@ -40,20 +57,21 @@ export const EventCard = ({
                 </S.CardContent>
                 <S.CardActions>
                     <S.CardAction>
-                        {renderFirstCTA ? renderFirstCTA() : (
+                        {renderFirstCTA ? (
+                            renderFirstCTA()
+                        ) : (
                             <>
                                 <S.CalendarMonth />
-                                {timestamp || 'Maine la 6'}
+                                {(timestamp &&
+                                    moment(timestamp).format(
+                                        'DD-MM-YYYY HH:mm'
+                                    )) ||
+                                    'Maine la 6'}
                             </>
                         )}
                     </S.CardAction>
                     <S.CardAction>
-                        {renderSecondCTA ? renderSecondCTA() : (
-                            <>
-                                <S.Place />
-                                {location || 'Unirii'}
-                            </>
-                        )}
+                        {renderSecondCTA ? renderSecondCTA() : null}
                     </S.CardAction>
                 </S.CardActions>
             </S.CardContentContainer>

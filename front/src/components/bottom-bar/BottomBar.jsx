@@ -44,7 +44,7 @@ export function BottomBar() {
             <BottomNavigationAction
                 label="History"
                 value="history"
-                onClick={() => navigate('/history')}
+                onClick={() => navigate('/event-history')}
                 icon={<HistoryIcon />}
             />
         </BottomNavigation>

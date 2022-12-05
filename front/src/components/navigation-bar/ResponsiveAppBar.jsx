@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,20 +9,22 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+import _ from 'lodash';
 export const ResponsiveAppBar = ({ pages }) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (pageUrl) => {
+        console.log(pageUrl);
+        navigate(pageUrl);
         setAnchorElNav(null);
     };
 
@@ -75,16 +79,18 @@ export const ResponsiveAppBar = ({ pages }) => {
                                 horizontal: 'left'
                             }}
                             open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
+                            onClose={() => setAnchorElNav(null)}
                             sx={{
                                 display: { xs: 'block', md: 'none' }
                             }}>
                             {pages.map((page) => (
                                 <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}>
+                                    key={page.name}
+                                    onClick={() =>
+                                        handleCloseNavMenu(page.url)
+                                    }>
                                     <Typography textAlign="center">
-                                        {page}
+                                        {page.name}
                                     </Typography>
                                 </MenuItem>
                             ))}
@@ -108,7 +114,7 @@ export const ResponsiveAppBar = ({ pages }) => {
                             color: 'inherit',
                             textDecoration: 'none'
                         }}>
-                        LOGO
+                        {`AWAREnet - ${_.get(user, 'type')}`}
                     </Typography>
                     <Box
                         sx={{
@@ -117,14 +123,14 @@ export const ResponsiveAppBar = ({ pages }) => {
                         }}>
                         {pages.map((page) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
+                                key={page.url}
+                                onClick={() => handleCloseNavMenu(page.url)}
                                 sx={{
                                     my: 2,
                                     color: 'white',
                                     display: 'block'
                                 }}>
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
                     </Box>

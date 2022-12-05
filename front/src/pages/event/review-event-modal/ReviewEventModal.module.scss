@@ -1,0 +1,14 @@
+.dialog {
+    max-width: 500px;
+    width: 100%;
+}
+
+.requestContainer > div {
+    display: flex !important;
+    gap: 10px;
+    min-width: 200px;
+}
+
+.ccontainerAddEvent {
+    gap: 20px;
+}

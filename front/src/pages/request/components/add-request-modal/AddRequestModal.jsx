@@ -17,20 +17,33 @@ import {
 } from '@mui/material';
 import styles from './AddRequestModal.module.scss';
 import _ from 'lodash';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 export const AddRequestModal = (props) => {
-    const { isOpen, handleClose, event } = props;
-    const {
-        state: { user }
-    } = useGlobalContext();
+    const { isOpen, handleClose, action } = props;
+    const [events, setEvents] = useState([]);
+    const [selectedEvent, setSelectedEvent] = useState(0);
+    const [description, setDescription] = useState('');
 
     const saveRequest = () => {
-        //ownerId - from event obj
-        //partnerId - e user-ul in sine
-        //actionId from NGO obj
-        console.log(user);
-        handleClose(true);
+        const obj = {
+            event: selectedEvent,
+            description: description,
+            action: action._id
+        };
+        axios.post('/request/create', obj).then(() => {
+            console.log('SUCCESs');
+        });
     };
+    useEffect(() => {
+        axios.get('/event/search?active=true').then((res) => {
+            console.log(res.data);
+            setEvents(res.data.events);
+        });
+    }, []);
+
     return (
         <Dialog
             open={isOpen}
@@ -50,42 +63,35 @@ export const AddRequestModal = (props) => {
                         container
                         direction="column"
                         className="container-add-event">
-                        {_.get(event, 'id') ? (
-                            <FormControl>
-                                <TextField
-                                    id="description"
-                                    label="description"
-                                    variant="outlined"
-                                />
-                            </FormControl>
-                        ) : (
-                            <FormControl fullWidth>
-                                <InputLabel id="action">Event</InputLabel>
-                                <Select
-                                    id="action"
-                                    label="Event"
-                                    // onChange={(event) =>
-                                    //     // setAction(event.target.value)
-                                    // }
-                                    // value={action}
-                                >
-                                    <MenuItem value={'Workshop1'}>
-                                        Workshop
-                                    </MenuItem>
-                                    <MenuItem value={'Workshop2'}>
-                                        Workshop2
-                                    </MenuItem>
-                                    <MenuItem value={'Workshop3'}>
-                                        Workshop3
-                                    </MenuItem>
-                                </Select>
-                            </FormControl>
-                        )}
+                        <FormControl fullWidth>
+                            <InputLabel id="action">Event</InputLabel>
+                            <Select
+                                id="action"
+                                label="Event"
+                                onChange={(event) => {
+                                    setSelectedEvent(event.target.value);
+                                }}
+                                value={selectedEvent}>
+                                {events.length !== 0 &&
+                                    events.map((item) => (
+                                        <MenuItem
+                                            value={item._id}
+                                            key={item._id + item.title}>
+                                            {item.title}
+                                        </MenuItem>
+                                    ))}
+                            </Select>
+                        </FormControl>
+
                         <FormControl>
                             <TextField
                                 id="description"
                                 label="description"
                                 variant="outlined"
+                                value={description}
+                                onChange={(event) => {
+                                    setDescription(event.target.value);
+                                }}
                             />
                         </FormControl>
                     </Grid>

@@ -15,5 +15,48 @@ code {
 }
 
 #root {
-    height: 100vh;
+    height: 100%;
+}
+
+page-title {
+    color: black;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.login-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+.login-inputs {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    gap: 10px;
+}
+@media screen and (max-width: 600px) {
+    .login-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .login-img {
+        width: 60%;
+    }
+}
+.divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

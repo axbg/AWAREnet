@@ -1,38 +1,55 @@
-import React, { useState } from 'react';
-import { IconButton, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Button, Divider } from '@mui/material';
 import styles from './Requests.module.scss';
-import AddIcon from '@mui/icons-material/Add';
 import { RequestCard } from './components/request-card/RequestCard';
 import { PageContainer } from 'components/page-container/PageContainer';
-import { AddRequestModal } from './components/add-request-modal/AddRequestModal';
+import _ from 'lodash';
+import axios from 'axios';
 
 export const Requests = () => {
-    const [requests] = useState(true);
+    const [incomingList, setIncomingList] = useState([]);
+    const [outgoingList, setOutgoingList] = useState([]);
+    // const {
+    //     state: { user }
+    // } = useGlobalContext();
 
-    const [openModal, setOpenAddModal] = useState(false);
+    // console.log(user);
     const [showPending, setShowPending] = useState(true);
+    const user = JSON.parse(localStorage.getItem('user'));
 
-    const PendingRequests = () => {
+    useEffect(() => {
+        axios.get(`/request/search?partner=${user.userId}`).then((res) => {
+            console.log(res);
+            setIncomingList(res.data.requests);
+        });
+        axios.get(`/request/search?owner=${user.userId}`).then((res) => {
+            console.log(res);
+            setOutgoingList(res.data.requests);
+        });
+    }, []);
+    const IncomingRequests = () => {
         return (
             <div className={styles.pendingRequests}>
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
-                <RequestCard />
+                {incomingList.map((item) => (
+                    <RequestCard
+                        req={item}
+                        key={_.uniqueId()}
+                        type="incoming"
+                    />
+                ))}
             </div>
         );
     };
-    const OnGoingRequests = () => {
+    const OutgoingRequests = () => {
         return (
             <div className={styles.pendingRequests}>
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
-                <RequestCard type="onGoing" />
+                {outgoingList.map((item) => (
+                    <RequestCard
+                        req={item}
+                        key={_.uniqueId()}
+                        type="outgoing"
+                    />
+                ))}
             </div>
         );
     };
@@ -45,7 +62,7 @@ export const Requests = () => {
                             variant="text"
                             onClick={() => setShowPending(true)}
                             sx={{ color: showPending ? '#0A3200' : '#4281A4' }}>
-                            Pending
+                            Incoming
                         </Button>
                         <Button
                             variant="text"
@@ -53,24 +70,14 @@ export const Requests = () => {
                             sx={{
                                 color: !showPending ? '#0A3200' : '#4281A4'
                             }}>
-                            On going
+                            Outgoing
                         </Button>
                     </div>
-                    <IconButton
-                        color="primary"
-                        aria-label="grid view"
-                        onClick={() => setOpenAddModal(true)}>
-                        <AddIcon />
-                    </IconButton>
                 </div>
-                {showPending ? <PendingRequests /> : <OnGoingRequests />}
+                <Divider classes="divider" />
+
+                {showPending ? <IncomingRequests /> : <OutgoingRequests />}
             </div>
-            {openModal && (
-                <AddRequestModal
-                    isOpen={openModal}
-                    handleClose={() => setOpenAddModal(false)}
-                />
-            )}
         </PageContainer>
     );
 };
