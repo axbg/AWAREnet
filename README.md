@@ -8,9 +8,7 @@ AWAREnet is a platform where companies, climate change activists, NGOs, and regu
 Through AWAREnet each side is able to host, fund, support or promote authentic activities that have a real impact.
 
 <div>
-    <img src="./assets/ngo.gif" width=300 />
-    <img src="./assets/company.gif" width=300 />
-    <img src="./assets/user.gif" height=300 />
+    <img src="./assets/all.gif" />
 </div>
 
 The app is built using React.js, Material UI, Mapbox GL, koa, mongoDB & AWS S3.
