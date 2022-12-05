@@ -4,19 +4,20 @@ import { useEffect } from 'react';
 import { closeBanner, useGlobalContext } from 'global-context';
 
 export const BackgroundBanner = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const {
         state: { bannerClosed },
         dispatch
     } = useGlobalContext();
 
     useEffect(() => {
-        setIsOpen(bannerClosed);
+        console.log(bannerClosed);
+        setIsOpen(!bannerClosed);
     }, [bannerClosed]);
 
     const close = () => {
         setIsOpen(false);
-        dispatch(closeBanner(false));
+        dispatch(closeBanner(true));
     };
 
     return (
