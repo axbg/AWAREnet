@@ -1,5 +1,5 @@
 # AWAREnet
-## Runner-up in the Climate change challenge @ DevHacks 2022 
+## Runner-up in the Climate Change challenge @ DevHacks 2022 
 
 <img src="./assets/logo.jpg" />
 
