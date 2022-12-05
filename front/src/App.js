@@ -18,6 +18,7 @@ import { AddEvent } from 'pages/add-event/AddEvent';
 import { MobileLayout } from 'layouts/MobileLayout';
 import { ExploreEvents } from 'pages/explore-events/ExploreEvents';
 import { DesktopLayout } from 'layouts/DesktopLayout';
+import { BackgroundBanner } from 'components/BackgroundBanner';
 import { CompaniesLeaderboard } from 'pages/leaderboard/CompaniesLeaderboard';
 // import { DashboardNGO } from 'pages/Dashboard/DasboardNGO';
 
@@ -56,6 +57,7 @@ function App() {
             {/* <BottomBar /> */}
             <ThemeProvider theme={darkTheme}>
                 <div className="app">
+                    <BackgroundBanner />
                     {/* DO NOT USE component like bellow in a Switch statement */}
                     {/* TODO: according to user role, this is just temporary */}
                     <Routes>

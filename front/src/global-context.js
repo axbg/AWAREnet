@@ -3,11 +3,13 @@ const GlobalContext = React.createContext();
 
 const initialState = {
     count: 0,
-    user: JSON.parse(localStorage.getItem('userDetails')) || {}
+    user: JSON.parse(localStorage.getItem('userDetails')) || {},
+    bannerClosed: false
 };
 
 const ACTIONS = {
-    ADD_USER: 'addUserData'
+    ADD_USER: 'addUserData',
+    CLOSE_BANNER: 'closeBanner'
 };
 
 //todo add a actions.js file into a global-context directory
@@ -16,7 +18,13 @@ export const addUser = (user) => ({
     user
 });
 
+export const closeBanner = (close) => ({
+    type: ACTIONS.CLOSE_BANNER,
+    close
+});
+
 function storeReducer(state = initialState, action) {
+    console.log(action);
     switch (action.type) {
         case ACTIONS.ADD_USER: {
             console.log('here', action);
@@ -24,6 +32,14 @@ function storeReducer(state = initialState, action) {
             return {
                 ...state,
                 user: action.user
+            };
+        }
+        case ACTIONS.CLOSE_BANNER: {
+            console.log('here', action);
+            localStorage.setItem('bannerClosed', action.close);
+            return {
+                ...state,
+                bannerClosed: action.close
             };
         }
         default: {
