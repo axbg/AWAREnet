@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import {
-    Box,
     Button,
     FormControl,
     Grid,
     TextField,
-    Typography,
     Dialog,
     DialogActions,
     DialogContent,
@@ -25,6 +23,7 @@ export const AddActionModal = (props) => {
             description,
             pictures
         };
+        // TODO
         console.log(newEvent);
     };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { addUser, useGlobalContext } from '../../global-context';
 import { Grid, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';

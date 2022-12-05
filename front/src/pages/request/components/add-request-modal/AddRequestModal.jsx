@@ -1,6 +1,4 @@
-import React from 'react';
-import { useGlobalContext } from 'global-context';
-
+import React, { useState, useEffect } from 'react';
 import {
     Dialog,
     DialogActions,
@@ -15,11 +13,9 @@ import {
     MenuItem,
     Select
 } from '@mui/material';
-import styles from './AddRequestModal.module.scss';
-import _ from 'lodash';
-import { useEffect } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
+
+import styles from './AddRequestModal.module.scss';
 
 export const AddRequestModal = (props) => {
     const { isOpen, handleClose, action } = props;

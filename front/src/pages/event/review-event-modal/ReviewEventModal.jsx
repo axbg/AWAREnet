@@ -1,36 +1,22 @@
-import React from 'react';
-import { useGlobalContext } from 'global-context';
+import React, { useState } from 'react';
 
 import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     Button,
-    TextField,
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select,
     Rating
 } from '@mui/material';
 import styles from './ReviewEventModal.module.scss';
-import _ from 'lodash';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { useState } from 'react';
 
+//TODO
 export const ReviewEventModal = (props) => {
-    const { isOpen, handleClose, event, action } = props;
-    const [events, setEvents] = useState([]);
-    const [selectedEvent, setSelectedEvent] = useState(0);
-    const [description, setDescription] = useState('');
+    const { isOpen, handleClose } = props;
     const [rating, setRating] = useState(0);
 
     const saveRequest = () => {};
-    useEffect(() => {}, []);
+    // useEffect(() => {}, []);
 
     return (
         <Dialog

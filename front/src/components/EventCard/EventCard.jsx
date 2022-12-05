@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import * as S from './EventCard.styles.tsx';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import axios from 'axios';
-import { Button } from '@mui/material';
 
 export const EventCard = ({
     eventData,
@@ -11,15 +9,8 @@ export const EventCard = ({
     renderSecondCTA = null
 }) => {
     const navigate = useNavigate();
-    const {
-        description,
-        pictures,
-        title,
-        owner,
-        partners,
-        timestampStart,
-        location
-    } = eventData;
+    const { description, pictures, title, owner, partners, timestampStart } =
+        eventData;
     const host = owner[0]?.name;
     const image = pictures[0];
     const partnerCount = partners?.length;

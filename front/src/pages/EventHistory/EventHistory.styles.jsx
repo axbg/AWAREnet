@@ -1,7 +1,5 @@
-import styled from "styled-components";
-import {
-    Typography
-} from '@mui/material';
+import styled from 'styled-components';
+import { Typography } from '@mui/material';
 
 export const EventHistory = styled('div')`
     height: 100%;
@@ -9,12 +7,9 @@ export const EventHistory = styled('div')`
     overflow-y: auto;
 `;
 
-export const TitleContainer = styled('div')`
+export const TitleContainer = styled('div')``;
 
-`;
-
-export const Title = styled(Typography)`
-`;
+export const Title = styled(Typography)``;
 
 export const ListContainer = styled('div')`
     height: 100%;

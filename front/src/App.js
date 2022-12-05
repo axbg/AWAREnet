@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Home } from './Home';
 import { Event } from 'pages/event/Event';
 
 // import { ResponsiveAppBar } from './components/navigation-bar/ResponsiveAppBar';
